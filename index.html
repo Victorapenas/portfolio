@@ -3,21 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Victor Hugo — Trajetória, Projetos & Currículo | JUST ME 🌙</title>
-  <meta name="description" content="Trajetória, currículo e projetos de Victor Hugo Santana Sousa (@Victorapenas). Desenvolvedor Fullstack e Design no IFBA Eunápolis e MBV Company.">
+  <title>Victor Hugo — Trajetória, Projetos & Acervo de Design | JUST ME 🌙</title>
+  <meta name="description" content="Registro pessoal, currículo e acervo de trabalhos de Victor Hugo Santana Sousa (@Victorapenas): SaaS Chá de Casa, decks de apresentação, artes e formação no IFBA.">
   <meta name="author" content="Victor Hugo Santana Sousa">
-  <meta name="theme-color" content="#070A12">
+  <meta name="theme-color" content="#080C16">
   <link rel="icon" type="image/svg+xml" href="./assets/images/favicon.svg">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pt_BR">
   <meta property="og:site_name" content="Victor Hugo — JUST ME 🌙">
-  <meta property="og:title" content="Victor Hugo — Trajetória, Projetos & Currículo | JUST ME 🌙">
-  <meta property="og:description" content="Conheça a história, formação no IFBA, SaaS Chá de Casa e trabalhos visuais de Victor Hugo.">
+  <meta property="og:title" content="Victor Hugo — Trajetória, Projetos & Acervo de Design | JUST ME 🌙">
+  <meta property="og:description" content="Conheça a história pessoal, formação no IFBA, SaaS Chá de Casa e apresentações de design de Victor Hugo.">
   <meta property="og:image" content="./assets/images/victor-portrait-hero.webp">
 
-  <!-- Fontes Leves e Neutras: Inter + Plus Jakarta Sans (Tipografia limpa, equilibrada e legível) -->
+  <!-- Fontes Leves e Equilibradas: Inter + Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
@@ -32,15 +32,12 @@
             brand: {
               dark: '#080C16',
               surface: '#0F1626',
-              border: 'rgba(255, 255, 255, 0.08)',
-              borderHover: 'rgba(56, 189, 248, 0.3)',
               accent: '#38BDF8',
               indigo: '#6366F1'
             }
           },
           fontFamily: {
             sans: ['Inter', 'Plus Jakarta Sans', 'system-ui', 'sans-serif'],
-            display: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
             mono: ['JetBrains Mono', 'monospace']
           }
         }
@@ -50,7 +47,6 @@
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
-    /* Reset & Base ultraleve para 60fps constante */
     html, body {
       background: #080C16;
       color: #E2E8F0;
@@ -59,7 +55,6 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Cards com blur suave sem peso de repaint */
     .card-clean {
       background: rgba(15, 22, 38, 0.7);
       border: 1px solid rgba(255, 255, 255, 0.08);
@@ -71,17 +66,6 @@
       transform: translateY(-2px);
     }
 
-    /* Imagens leves com decode assíncrono */
-    img {
-      content-visibility: auto;
-    }
-
-    /* Scrollbar simples */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #080C16; }
-    ::-webkit-scrollbar-thumb { background: #1E293B; border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: #334155; }
-
     /* Lightbox Modal */
     #lightbox {
       opacity: 0;
@@ -92,15 +76,21 @@
       opacity: 1;
       pointer-events: auto;
     }
+
+    /* Scrollbar simples */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #080C16; }
+    ::-webkit-scrollbar-thumb { background: #1E293B; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #334155; }
   </style>
 </head>
 <body class="selection:bg-cyan-500/20 selection:text-cyan-200">
 
-  <!-- Header Superior Limpo -->
+  <!-- Header Superior -->
   <header class="sticky top-0 z-40 bg-[#080C16]/90 backdrop-blur-md border-b border-white/[0.06]">
     <div class="max-w-5xl mx-auto px-5 h-16 flex items-center justify-between">
       <a href="#inicio" class="flex items-center gap-3 group">
-        <img src="./assets/images/vh-logo.svg" alt="Victor Hugo" class="w-8 h-8 rounded-lg shadow-sm">
+        <img src="./assets/images/vh-logo.svg" alt="Victor Hugo" class="w-8 h-8 rounded-lg">
         <div class="leading-tight">
           <span class="block font-semibold text-sm text-white group-hover:text-brand-accent transition-colors">Victor Hugo</span>
           <span class="block text-[11px] font-mono text-slate-400">JUST ME 🌙</span>
@@ -111,8 +101,8 @@
       <nav class="hidden sm:flex items-center gap-6 text-xs font-medium text-slate-300">
         <a href="#sobre" class="hover:text-white transition-colors">Sobre</a>
         <a href="#trajetoria" class="hover:text-white transition-colors">Currículo &amp; Formação</a>
-        <a href="#projetos" class="hover:text-white transition-colors">Projetos Web</a>
-        <a href="#materiais" class="hover:text-white transition-colors">Materiais de Design</a>
+        <a href="#projetos-web" class="hover:text-white transition-colors">Projetos Web</a>
+        <a href="#design-materiais" class="hover:text-white transition-colors">Acervo de Design</a>
         <a href="#contato" class="hover:text-white transition-colors">Contato</a>
       </nav>
 
@@ -136,38 +126,38 @@
         <!-- Texto & Apresentação -->
         <div class="md:col-span-8 space-y-4">
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/10 text-xs font-mono text-slate-300">
-            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
             <span>Eunápolis, Bahia · Desenvolvedor Fullstack &amp; Designer</span>
           </div>
 
           <h1 class="text-2xl sm:text-3xl md:text-4xl font-semibold text-white tracking-tight leading-snug">
             Olá, eu sou o Victor Hugo.<br>
-            <span class="text-slate-400 font-normal text-xl sm:text-2xl">Desenvolvo sistemas web, crio interfaces e organizo projetos digitais.</span>
+            <span class="text-slate-400 font-normal text-xl sm:text-2xl">Aqui conto minha história e compartilho os materiais que desenvolvi.</span>
           </h1>
 
           <p class="text-slate-300 text-sm sm:text-base leading-relaxed font-normal">
-            Sou estudante de <strong>Análise e Desenvolvimento de Sistemas</strong> pelo <strong>IFBA</strong> (onde também me formei no Técnico em Informática Integrado e atuei como monitor de programação web) e atuo como <strong>COO na MBV Company</strong>, cuidando de infraestrutura, suporte e fluxos operacionais.
+            Não estou aqui vendendo produtos ou serviços. Este site é o meu currículo aberto e um acervo para você conhecer um pouco sobre mim: minha formação no <strong>IFBA</strong> (onde atuei como monitor de programação web), minha função como <strong>COO na MBV Company</strong> e os projetos reais de software e design gráfico que já realizei.
           </p>
 
           <p class="text-slate-400 text-sm leading-relaxed">
-            Este espaço é o meu portfólio e currículo aberto. Aqui reúno a minha história, as tecnologias com que trabalho no dia a dia e os projetos reais que já desenvolvi — desde plataformas SaaS completas em Laravel com PIX até apresentações comerciais e identidades visuais para empresas.
+            Aqui você encontra desde o <strong>Chá de Casa</strong> (plataforma SaaS completa em Laravel com PIX que hospedo na Hostinger) até apresentações comerciais multi-páginas de trailers para a <strong>Garagem</strong>, projetos industriais da <strong>AGA Soldas</strong>, identidade e banners do cantor <strong>Gaab Lopes</strong> e peças visuais como <strong>Um Toque de Amor</strong> e <strong>Toplanche</strong>.
           </p>
 
-          <!-- Badges de Contato Rápido -->
+          <!-- Ações Simples -->
           <div class="pt-2 flex flex-wrap items-center gap-3 text-xs">
-            <a href="#projetos" class="px-4 py-2 rounded-lg bg-white text-slate-900 font-medium hover:bg-slate-200 transition-colors inline-flex items-center gap-1.5">
-              <span>Ver meus projetos</span>
+            <a href="#design-materiais" class="px-4 py-2 rounded-lg bg-white text-slate-900 font-medium hover:bg-slate-200 transition-colors inline-flex items-center gap-1.5">
+              <span>Ver acervo de design</span>
               <i data-lucide="arrow-down" class="w-3.5 h-3.5"></i>
             </a>
-            <a href="https://wa.me/5573981037776?text=Oi%20Victor,%20vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar." target="_blank" rel="noopener" class="px-4 py-2 rounded-lg bg-white/[0.05] border border-white/10 text-white hover:bg-white/10 transition-colors inline-flex items-center gap-1.5">
-              <i data-lucide="message-circle" class="w-3.5 h-3.5 text-emerald-400"></i>
-              <span>Mandar mensagem</span>
+            <a href="#projetos-web" class="px-4 py-2 rounded-lg bg-white/[0.05] border border-white/10 text-white hover:bg-white/10 transition-colors inline-flex items-center gap-1.5">
+              <span>Ver projetos web</span>
+              <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
             </a>
-            <span class="font-mono text-slate-500 py-1 px-2">Assinatura pessoal: JUST ME 🌙</span>
+            <span class="font-mono text-slate-500 py-1 px-2">Assinatura: JUST ME 🌙</span>
           </div>
         </div>
 
-        <!-- Foto Pessoal Integrada Leve -->
+        <!-- Foto Pessoal -->
         <div class="md:col-span-4 flex justify-center md:justify-end">
           <div class="relative w-48 sm:w-56 rounded-2xl overflow-hidden border border-white/10 shadow-lg bg-slate-900">
             <img src="./assets/images/victor-portrait-hero.webp" alt="Foto de Victor Hugo Santana" width="400" height="400" class="w-full h-auto object-cover object-center" fetchpriority="high" decoding="async">
@@ -184,7 +174,7 @@
     <section id="trajetoria" class="pt-6 border-t border-white/[0.06]">
       <div class="mb-8">
         <h2 class="text-xl sm:text-2xl font-semibold text-white tracking-tight">Trajetória &amp; Formação</h2>
-        <p class="text-xs sm:text-sm text-slate-400 mt-1">Minha base acadêmica, monitoria em programação e atuação profissional.</p>
+        <p class="text-xs sm:text-sm text-slate-400 mt-1">Minha base acadêmica no IFBA, monitoria de código e atuação operacional.</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -198,12 +188,12 @@
             <h3 class="text-base font-semibold text-white">IFBA — Campus Eunápolis</h3>
             <p class="text-xs text-slate-300 font-medium mt-0.5">Técnico em Informática Integrado &amp; ADS</p>
             <p class="text-xs text-slate-400 leading-relaxed mt-3">
-              Formação sólida em ciência da computação: lógica de programação, arquitetura de computadores, redes, estruturas de dados e modelagem de banco de dados relacional (MySQL). Atualmente graduando em Análise e Desenvolvimento de Sistemas.
+              Base técnica e científica em algoritmos, modelagem de banco de dados relacional (MySQL), arquitetura de sistemas e engenharia de software. Atualmente cursando a graduação em Análise e Desenvolvimento de Sistemas.
             </p>
           </div>
           <div class="mt-4 pt-3 border-t border-white/[0.06] flex flex-wrap gap-1.5">
             <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">Algoritmos</span>
-            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">Banco de Dados</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">Banco de Dados MySQL</span>
             <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">Engenharia de Software</span>
           </div>
         </div>
@@ -213,18 +203,18 @@
           <div>
             <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-2">
               <span class="text-emerald-400">Monitor Oficial</span>
-              <span>Docência / Apoio</span>
+              <span>Apoio Pedagógico</span>
             </div>
             <h3 class="text-base font-semibold text-white">Monitoria de Programação Web &amp; PHP</h3>
             <p class="text-xs text-slate-300 font-medium mt-0.5">Instituto Federal da Bahia</p>
             <p class="text-xs text-slate-400 leading-relaxed mt-3">
-              Auxílio a estudantes em início de curso no aprendizado de desenvolvimento web back-end e front-end: arquitetura cliente-servidor, lógica de programação em PHP, formulários, sessões, integração com MySQL e resolução de erros.
+              Atuação como monitor oficial auxiliando estudantes no aprendizado de lógica de programação, sintaxe PHP, formulários dinâmicos, sessões, integração com banco de dados e depuração de erros em aplicações web.
             </p>
           </div>
           <div class="mt-4 pt-3 border-t border-white/[0.06] flex flex-wrap gap-1.5">
             <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">PHP</span>
-            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">HTML5/CSS3</span>
-            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">Didática Técnica</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">HTML5 &amp; CSS3</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">Didática &amp; Mentoria</span>
           </div>
         </div>
 
@@ -238,12 +228,12 @@
             <h3 class="text-base font-semibold text-white">COO na MBV Company</h3>
             <p class="text-xs text-slate-300 font-medium mt-0.5">Diretoria de Operações e Tecnologia</p>
             <p class="text-xs text-slate-400 leading-relaxed mt-3">
-              Coordenação de processos operacionais, manutenção e gestão de infraestrutura de hardware e softwares internos, além do alinhamento entre demandas de negócios e soluções digitais aplicadas.
+              Supervisão de fluxos operacionais, suporte a equipamentos e hardware, além da manutenção e estruturação de softwares internos de controle e produtividade da empresa.
             </p>
           </div>
           <div class="mt-4 pt-3 border-t border-white/[0.06] flex flex-wrap gap-1.5">
             <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">Gestão Operacional</span>
-            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">Hardware &amp; Redes</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">Infraestrutura</span>
             <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">Sistemas Internos</span>
           </div>
         </div>
@@ -252,35 +242,35 @@
         <div class="card-clean p-6 flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-2">
-              <span class="text-cyan-400">Habilidades Técnicas</span>
-              <span>Ferramentas</span>
+              <span class="text-cyan-400">Conhecimentos Técnicos</span>
+              <span>Stack</span>
             </div>
-            <h3 class="text-base font-semibold text-white">Stack de Desenvolvimento &amp; Design</h3>
-            <p class="text-xs text-slate-300 font-medium mt-0.5">Tecnologias que domino e utilizo</p>
+            <h3 class="text-base font-semibold text-white">Tecnologias &amp; Softwares</h3>
+            <p class="text-xs text-slate-300 font-medium mt-0.5">Ferramentas que utilizo</p>
             <p class="text-xs text-slate-400 leading-relaxed mt-3">
-              Desenvolvimento de ponta a ponta com foco em código limpo, interfaces agradáveis e boa usabilidade em dispositivos móveis.
+              Criação de projetos unindo desenvolvimento back-end e front-end com design visual e diagramação em softwares de edição gráfica.
             </p>
           </div>
           <div class="mt-4 pt-3 border-t border-white/[0.06] flex flex-wrap gap-1.5">
-            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">PHP 8 / Laravel</span>
-            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">JavaScript / TypeScript</span>
-            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">React &amp; Tailwind</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">PHP / Laravel</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">JavaScript / React</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">Tailwind CSS</span>
             <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">MySQL</span>
-            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">Photoshop &amp; Figma</span>
-            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">Git &amp; GitHub</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">Photoshop &amp; Illustrator</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">Figma</span>
           </div>
         </div>
       </div>
     </section>
 
     <!-- PROJETOS EM DESTAQUE (WEB & SAAS) -->
-    <section id="projetos" class="pt-6 border-t border-white/[0.06]">
+    <section id="projetos-web" class="pt-6 border-t border-white/[0.06]">
       <div class="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
         <div>
           <h2 class="text-xl sm:text-2xl font-semibold text-white tracking-tight">Projetos Web &amp; Aplicações</h2>
-          <p class="text-xs sm:text-sm text-slate-400 mt-1">Sistemas funcionais e websites que desenvolvi e coloquei no ar.</p>
+          <p class="text-xs sm:text-sm text-slate-400 mt-1">Sistemas funcionais e sites que desenvolvi e coloquei no ar.</p>
         </div>
-        <span class="text-xs font-mono text-slate-500">Trabalhos reais</span>
+        <span class="text-xs font-mono text-slate-500">Desenvolvimento de Software</span>
       </div>
 
       <div class="space-y-6">
@@ -311,7 +301,7 @@
           </div>
 
           <p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-4">
-            O <strong>CháVIP</strong> é uma plataforma SaaS desenvolvida em <strong>Laravel 11</strong> que criei para resolver um problema comum em chás de casa nova, casamentos e aniversários: listas desatualizadas e taxas excessivas de intermediários. O sistema permite que cada anfitrião crie seu site personalizado, importe presentes colando o link de qualquer loja na internet (com busca automática de foto e preço) e receba contribuições via <strong>PIX direto na sua conta</strong>, além de gerenciar confirmações de presença (RSVP).
+            O <strong>CháVIP</strong> é uma plataforma SaaS em <strong>Laravel 11</strong> que criei para gerenciar chás de casa nova, casamentos e aniversários. O sistema possui arquitetura multi-tenant (cada anfitrião tem sua página e painel próprio), importação automática de presentes via link de lojas externas (web scraping de título, foto e preço) e recebimento direto de presentes em dinheiro via <strong>PIX</strong> sem taxa de intermediação retendo o valor.
           </p>
 
           <div class="flex flex-wrap gap-2 text-xs font-mono text-slate-300">
@@ -324,7 +314,7 @@
           </div>
         </article>
 
-        <!-- Grid de Outros 3 Projetos Web -->
+        <!-- Grid de Outros Projetos Web -->
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <!-- Sonbatera -->
           <article class="card-clean p-5 flex flex-col justify-between">
@@ -334,7 +324,7 @@
               </div>
               <h3 class="text-sm font-semibold text-white">Sonbatera Oficial</h3>
               <p class="text-xs text-slate-400 leading-relaxed mt-1">
-                Website e portfólio oficial desenvolvido para o baterista profissional Sonbatera, com agenda, mídias e contato para apresentações.
+                Website e portfólio oficial desenvolvido para o baterista profissional Sonbatera, com agenda, vídeos e apresentação.
               </p>
             </div>
             <div class="mt-4 pt-3 border-t border-white/[0.06] flex items-center justify-between text-xs">
@@ -352,11 +342,11 @@
               <div class="h-36 rounded-lg bg-gradient-to-br from-cyan-950/40 to-slate-900 flex flex-col items-center justify-center p-4 mb-3 border border-white/[0.06] text-center">
                 <i data-lucide="compass" class="w-8 h-8 text-cyan-400 mb-2"></i>
                 <span class="text-xs font-semibold text-white">MBV Viagens</span>
-                <span class="text-[10px] font-mono text-slate-400">Divisão de Custos em Grupo</span>
+                <span class="text-[10px] font-mono text-slate-400">Rateio de Custos em Grupo</span>
               </div>
               <h3 class="text-sm font-semibold text-white">MBV Viagens &amp; Roteiros</h3>
               <p class="text-xs text-slate-400 leading-relaxed mt-1">
-                Aplicação web para organização de viagens coletivas, itinerário e cálculo automático de rateio de despesas entre os viajantes.
+                Aplicação web para organização de viagens em grupo, checklist e cálculo automático de rateio de despesas entre os viajantes.
               </p>
             </div>
             <div class="mt-4 pt-3 border-t border-white/[0.06] flex items-center justify-between text-xs">
@@ -376,7 +366,7 @@
               </div>
               <h3 class="text-sm font-semibold text-white">Coworking Digital</h3>
               <p class="text-xs text-slate-400 leading-relaxed mt-1">
-                Sistema interno com painel de tarefas e controle de permissões de acesso por perfil (administrador, gestor e operador).
+                Sistema corporativo interno com painel de tarefas e controle de permissões por perfil (admin, gestor e operador).
               </p>
             </div>
             <div class="mt-4 pt-3 border-t border-white/[0.06] flex items-center justify-between text-xs">
@@ -388,82 +378,234 @@
       </div>
     </section>
 
-    <!-- MATERIAIS DE DESIGN & TRABALHOS VISUAIS -->
-    <section id="materiais" class="pt-6 border-t border-white/[0.06]">
-      <div class="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
-        <div>
-          <h2 class="text-xl sm:text-2xl font-semibold text-white tracking-tight">Materiais de Design &amp; Identidade</h2>
-          <p class="text-xs sm:text-sm text-slate-400 mt-1">Peças gráficas, apresentações comerciais e materiais criados para empresas. Clique para ampliar.</p>
-        </div>
-        <span class="text-xs font-mono text-slate-500">6 trabalhos catalogados</span>
+    <!-- ACERVO DE DESIGN, APRESENTAÇÕES & IDENTIDADES VISUAIS -->
+    <section id="design-materiais" class="pt-6 border-t border-white/[0.06]">
+      <div class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-white tracking-tight">Acervo de Design &amp; Apresentações</h2>
+        <p class="text-xs sm:text-sm text-slate-400 mt-1">
+          Materiais reais que criei no Photoshop e Illustrator: apresentações comerciais completas (PDFs multi-páginas de trailers), branding musical e identidade visual. Clique nas imagens para ampliar.
+        </p>
       </div>
 
-      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
-        <!-- Item 1: Garagem Retro Smart Deck -->
-        <button type="button" class="gallery-item text-left card-clean overflow-hidden p-2 group focus:outline-none" data-src="./assets/images/garagem-retro-deck.webp" data-title="Garagem Retro Smart — Apresentação de Trailers" data-desc="Diagramação e visual para deck comercial de apresentação de trailers gastronômicos.">
-          <div class="h-36 sm:h-44 rounded-lg overflow-hidden bg-slate-950 relative">
-            <img src="./assets/images/garagem-retro-deck.webp" alt="Garagem Retro Smart" width="400" height="250" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async">
+      <div class="space-y-12">
+        
+        <!-- BLOCO 1: GARAGEM DOS TRAILERS (APRESENTAÇÃO MULTI-PÁGINAS) -->
+        <div class="card-clean p-6 sm:p-7 space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/[0.06] pb-4">
+            <div>
+              <span class="text-xs font-mono text-amber-400 uppercase tracking-wider block">Projeto 1 · Apresentação Comercial Completa</span>
+              <h3 class="text-lg font-semibold text-white">Garagem — Deck Comercial de Trailers (Modelo Retro)</h3>
+            </div>
+            <span class="text-xs font-mono text-slate-400">PDF com várias páginas diagramadas</span>
           </div>
-          <div class="p-2">
-            <span class="text-[10px] font-mono text-amber-400 uppercase">Apresentação</span>
-            <p class="text-xs font-medium text-white truncate">Garagem Retro Smart</p>
-          </div>
-        </button>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            Apresentação comercial e catálogo técnico completo desenvolvido para a venda de trailers gastronômicos personalizados. Abaixo estão as lâminas e páginas que compõem o material:
+          </p>
 
-        <!-- Item 2: Garagem Galeria e Ficha Técnica -->
-        <button type="button" class="gallery-item text-left card-clean overflow-hidden p-2 group focus:outline-none" data-src="./assets/images/garagem-retro-galeria.webp" data-title="Garagem Retro Smart — Galeria Técnica" data-desc="Composição visual de modelos e detalhes de montagem.">
-          <div class="h-36 sm:h-44 rounded-lg overflow-hidden bg-slate-950 relative">
-            <img src="./assets/images/garagem-retro-galeria.webp" alt="Galeria Retro Smart" width="400" height="250" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async">
-          </div>
-          <div class="p-2">
-            <span class="text-[10px] font-mono text-amber-400 uppercase">Catálogo</span>
-            <p class="text-xs font-medium text-white truncate">Retro Smart — Detalhes</p>
-          </div>
-        </button>
+          <!-- Grid das Lâminas do Trailer -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
+            <button type="button" class="gallery-item card-clean p-1.5 text-left group focus:outline-none" data-src="./assets/images/garagem-slide-01.webp" data-title="Garagem Retro — Página 01 (Capa Modelo Classic)" data-desc="Capa de apresentação institucional do modelo Classic.">
+              <div class="h-28 rounded overflow-hidden bg-slate-950 mb-1.5">
+                <img src="./assets/images/garagem-slide-01.webp" alt="Página 01" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200" loading="lazy">
+              </div>
+              <span class="text-[10px] font-mono text-slate-400 block truncate">Pág. 01 — Capa Classic</span>
+            </button>
 
-        <!-- Item 3: Gaab Lopes YouTube -->
-        <button type="button" class="gallery-item text-left card-clean overflow-hidden p-2 group focus:outline-none" data-src="./assets/images/gaab-lopes-cover.webp" data-title="Gaab Lopes — Identidade para YouTube" data-desc="Capa e direção visual para canal musical do artista Gaab Lopes.">
-          <div class="h-36 sm:h-44 rounded-lg overflow-hidden bg-slate-950 relative">
-            <img src="./assets/images/gaab-lopes-cover.webp" alt="Gaab Lopes Capa" width="400" height="250" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async">
-          </div>
-          <div class="p-2">
-            <span class="text-[10px] font-mono text-pink-400 uppercase">Música</span>
-            <p class="text-xs font-medium text-white truncate">Gaab Lopes — Canal</p>
-          </div>
-        </button>
+            <button type="button" class="gallery-item card-clean p-1.5 text-left group focus:outline-none" data-src="./assets/images/garagem-slide-02.webp" data-title="Garagem Retro — Página 02 (Apresentação & Conceito)" data-desc="Página institucional descrevendo o conceito e vantagens do trailer.">
+              <div class="h-28 rounded overflow-hidden bg-slate-950 mb-1.5">
+                <img src="./assets/images/garagem-slide-02.webp" alt="Página 02" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200" loading="lazy">
+              </div>
+              <span class="text-[10px] font-mono text-slate-400 block truncate">Pág. 02 — Conceito</span>
+            </button>
 
-        <!-- Item 4: Toplanche Menu -->
-        <button type="button" class="gallery-item text-left card-clean overflow-hidden p-2 group focus:outline-none" data-src="./assets/images/toplanche-menu.webp" data-title="Toplanche — Cardápio & Gastronomia" data-desc="Design e organização de cardápio para lanchonete e delivery.">
-          <div class="h-36 sm:h-44 rounded-lg overflow-hidden bg-slate-950 relative">
-            <img src="./assets/images/toplanche-menu.webp" alt="Toplanche Menu" width="400" height="250" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async">
-          </div>
-          <div class="p-2">
-            <span class="text-[10px] font-mono text-emerald-400 uppercase">Gastronomia</span>
-            <p class="text-xs font-medium text-white truncate">Toplanche — Cardápio</p>
-          </div>
-        </button>
+            <button type="button" class="gallery-item card-clean p-1.5 text-left group focus:outline-none" data-src="./assets/images/garagem-slide-03.webp" data-title="Garagem Retro — Página 03 (Estrutura e Dimensões)" data-desc="Especificações dimensionais do modelo Classic.">
+              <div class="h-28 rounded overflow-hidden bg-slate-950 mb-1.5">
+                <img src="./assets/images/garagem-slide-03.webp" alt="Página 03" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200" loading="lazy">
+              </div>
+              <span class="text-[10px] font-mono text-slate-400 block truncate">Pág. 03 — Dimensões</span>
+            </button>
 
-        <!-- Item 5: AGA Soldas -->
-        <button type="button" class="gallery-item text-left card-clean overflow-hidden p-2 group focus:outline-none" data-src="./assets/images/case-solda.webp" data-title="AGA Soldas — Peça Industrial" data-desc="Material de comunicação e catálogo para serviços de solda e serralheria industrial.">
-          <div class="h-36 sm:h-44 rounded-lg overflow-hidden bg-slate-950 relative">
-            <img src="./assets/images/case-solda.webp" alt="AGA Soldas" width="400" height="250" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async">
-          </div>
-          <div class="p-2">
-            <span class="text-[10px] font-mono text-blue-400 uppercase">Indústria</span>
-            <p class="text-xs font-medium text-white truncate">AGA Soldas — Técnico</p>
-          </div>
-        </button>
+            <button type="button" class="gallery-item card-clean p-1.5 text-left group focus:outline-none" data-src="./assets/images/garagem-slide-04.webp" data-title="Garagem Retro — Página 04 (Modelo Premium)" data-desc="Apresentação do acabamento Premium com opcionais de luxo.">
+              <div class="h-28 rounded overflow-hidden bg-slate-950 mb-1.5">
+                <img src="./assets/images/garagem-slide-04.webp" alt="Página 04" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200" loading="lazy">
+              </div>
+              <span class="text-[10px] font-mono text-slate-400 block truncate">Pág. 04 — Premium</span>
+            </button>
 
-        <!-- Item 6: Dra. Ana Veterinária -->
-        <button type="button" class="gallery-item text-left card-clean overflow-hidden p-2 group focus:outline-none" data-src="./assets/images/case-veterinaria.webp" data-title="Dra. Ana Veterinária — Comunicação em Saúde" data-desc="Material visual e identidade para atendimento e clínica veterinária.">
-          <div class="h-36 sm:h-44 rounded-lg overflow-hidden bg-slate-950 relative">
-            <img src="./assets/images/case-veterinaria.webp" alt="Dra. Ana Veterinária" width="400" height="250" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async">
+            <button type="button" class="gallery-item card-clean p-1.5 text-left group focus:outline-none" data-src="./assets/images/garagem-slide-05.webp" data-title="Garagem Retro — Página 05 (Ficha Técnica)" data-desc="Ficha técnica com itens de série, materiais e elétrica.">
+              <div class="h-28 rounded overflow-hidden bg-slate-950 mb-1.5">
+                <img src="./assets/images/garagem-slide-05.webp" alt="Página 05" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200" loading="lazy">
+              </div>
+              <span class="text-[10px] font-mono text-slate-400 block truncate">Pág. 05 — Ficha Técnica</span>
+            </button>
+
+            <button type="button" class="gallery-item card-clean p-1.5 text-left group focus:outline-none" data-src="./assets/images/garagem-slide-06.webp" data-title="Garagem Retro — Página 06 (Galeria de Montagem)" data-desc="Galeria fotográfica de trailers finalizados e entregues.">
+              <div class="h-28 rounded overflow-hidden bg-slate-950 mb-1.5">
+                <img src="./assets/images/garagem-slide-06.webp" alt="Página 06" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200" loading="lazy">
+              </div>
+              <span class="text-[10px] font-mono text-slate-400 block truncate">Pág. 06 — Galeria Real</span>
+            </button>
           </div>
-          <div class="p-2">
-            <span class="text-[10px] font-mono text-cyan-400 uppercase">Clínica</span>
-            <p class="text-xs font-medium text-white truncate">Dra. Ana Veterinária</p>
+
+          <!-- Peças Publicitárias da Garagem (Minicarregadeira) -->
+          <div class="pt-4 border-t border-white/[0.06]">
+            <span class="text-xs font-mono text-slate-400 block mb-2.5">Anúncios &amp; Peças Publicitárias para a Garagem:</span>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+              <button type="button" class="gallery-item card-clean p-1.5 text-left group focus:outline-none" data-src="./assets/images/minicarregadeira-anuncio-a.webp" data-title="Garagem — Anúncio Minicarregadeira (Versão A)" data-desc="Criativo de anúncio e marketing direto para minicarregadeira.">
+                <div class="h-28 rounded overflow-hidden bg-slate-950 mb-1.5">
+                  <img src="./assets/images/minicarregadeira-anuncio-a.webp" alt="Anúncio A" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200" loading="lazy">
+                </div>
+                <span class="text-[10px] font-mono text-slate-400 block truncate">Criativo Minicarregadeira A</span>
+              </button>
+
+              <button type="button" class="gallery-item card-clean p-1.5 text-left group focus:outline-none" data-src="./assets/images/minicarregadeira-anuncio-b.webp" data-title="Garagem — Anúncio Minicarregadeira (Versão B)" data-desc="Criativo em blocos de anúncio para tráfego pago.">
+                <div class="h-28 rounded overflow-hidden bg-slate-950 mb-1.5">
+                  <img src="./assets/images/minicarregadeira-anuncio-b.webp" alt="Anúncio B" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200" loading="lazy">
+                </div>
+                <span class="text-[10px] font-mono text-slate-400 block truncate">Criativo Minicarregadeira B</span>
+              </button>
+            </div>
           </div>
-        </button>
+        </div>
+
+        <!-- BLOCO 2: GAAB LOPES (BANNER DE YOUTUBE & FOTOS DO ARTISTA) -->
+        <div class="card-clean p-6 sm:p-7 space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/[0.06] pb-4">
+            <div>
+              <span class="text-xs font-mono text-pink-400 uppercase tracking-wider block">Projeto 2 · Música &amp; Streaming</span>
+              <h3 class="text-lg font-semibold text-white">Gaab Lopes — Banner de YouTube, Capas &amp; Fotos</h3>
+            </div>
+            <span class="text-xs font-mono text-slate-400">Direção visual para canal de música</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            Desenvolvimento visual para o canal e presença digital do cantor Gaab Lopes, incluindo banner panorâmico para YouTube, tratamento fotográfico de estúdio e capa oficial.
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-12 gap-3">
+            <!-- Banner Panorâmico Grande (8 colunas) -->
+            <button type="button" class="sm:col-span-8 gallery-item card-clean p-2 text-left group focus:outline-none" data-src="./assets/images/gaab-lopes-banner.webp" data-title="Gaab Lopes — Banner Oficial para YouTube" data-desc="Arte panorâmica de cabeçalho para o canal oficial de YouTube de Gaab Lopes.">
+              <div class="h-44 sm:h-52 rounded-lg overflow-hidden bg-slate-950 mb-2">
+                <img src="./assets/images/gaab-lopes-banner.webp" alt="Banner Gaab Lopes YouTube" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-200" loading="lazy">
+              </div>
+              <div class="px-1">
+                <span class="text-[10px] font-mono text-pink-400 uppercase">Banner Panorâmico</span>
+                <p class="text-xs font-medium text-white truncate">Gaab Lopes — Arte de Cabeçalho do YouTube</p>
+              </div>
+            </button>
+
+            <!-- Foto de Perfil & Fotos do Artista (4 colunas) -->
+            <div class="sm:col-span-4 grid grid-cols-2 sm:grid-cols-1 gap-3">
+              <button type="button" class="gallery-item card-clean p-2 text-left group focus:outline-none" data-src="./assets/images/gaab-lopes-artista.webp" data-title="Gaab Lopes — Foto Oficial do Artista" data-desc="Tratamento e edição fotográfica para divulgação e perfil.">
+                <div class="h-24 sm:h-24 rounded-lg overflow-hidden bg-slate-950 mb-1.5">
+                  <img src="./assets/images/gaab-lopes-artista.webp" alt="Foto Gaab Lopes" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-200" loading="lazy">
+                </div>
+                <p class="text-[11px] font-medium text-white truncate">Foto de Perfil do Artista</p>
+              </button>
+
+              <button type="button" class="gallery-item card-clean p-2 text-left group focus:outline-none" data-src="./assets/images/gaab-lopes-take1.webp" data-title="Gaab Lopes — Ensaio Fotográfico" data-desc="Foto de ensaio de estúdio tratada para peças de divulgação musical.">
+                <div class="h-24 sm:h-24 rounded-lg overflow-hidden bg-slate-950 mb-1.5">
+                  <img src="./assets/images/gaab-lopes-take1.webp" alt="Ensaio Gaab Lopes" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-200" loading="lazy">
+                </div>
+                <p class="text-[11px] font-medium text-white truncate">Foto de Ensaio Musical</p>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- BLOCO 3: AGA SOLDAS (CATÁLOGO INDUSTRIAL MULTI-PÁGINAS) -->
+        <div class="card-clean p-6 sm:p-7 space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/[0.06] pb-4">
+            <div>
+              <span class="text-xs font-mono text-blue-400 uppercase tracking-wider block">Projeto 3 · Indústria &amp; Serviços Técnicos</span>
+              <h3 class="text-lg font-semibold text-white">AGA Soldas — Apresentação Comercial e Catálogo Industrial</h3>
+            </div>
+            <span class="text-xs font-mono text-slate-400">PDF com várias páginas técnicas</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            Catálogo comercial e técnico desenvolvido para apresentação de serviços de caldeiraria, fabricação de tanques e soldagem industrial pesada. Lâminas do projeto:
+          </p>
+
+          <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
+            <button type="button" class="gallery-item card-clean p-1.5 text-left group focus:outline-none" data-src="./assets/images/aga-soldas-pag01.webp" data-title="AGA Soldas — Página 01 (Capa Comercial)" data-desc="Capa institucional da apresentação comercial de solda e serviços técnicos.">
+              <div class="h-28 rounded overflow-hidden bg-slate-950 mb-1.5">
+                <img src="./assets/images/aga-soldas-pag01.webp" alt="Página 01" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200" loading="lazy">
+              </div>
+              <span class="text-[10px] font-mono text-slate-400 block truncate">Pág. 01 — Capa Comercial</span>
+            </button>
+
+            <button type="button" class="gallery-item card-clean p-1.5 text-left group focus:outline-none" data-src="./assets/images/aga-soldas-pag02.webp" data-title="AGA Soldas — Página 02 (Serviços Especializados)" data-desc="Apresentação de equipe técnica e serviços de solda.">
+              <div class="h-28 rounded overflow-hidden bg-slate-950 mb-1.5">
+                <img src="./assets/images/aga-soldas-pag02.webp" alt="Página 02" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200" loading="lazy">
+              </div>
+              <span class="text-[10px] font-mono text-slate-400 block truncate">Pág. 02 — Serviços</span>
+            </button>
+
+            <button type="button" class="gallery-item card-clean p-1.5 text-left group focus:outline-none" data-src="./assets/images/aga-soldas-pag03.webp" data-title="AGA Soldas — Página 03 (Equipamentos)" data-desc="Processos industriais e maquinários operados.">
+              <div class="h-28 rounded overflow-hidden bg-slate-950 mb-1.5">
+                <img src="./assets/images/aga-soldas-pag03.webp" alt="Página 03" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200" loading="lazy">
+              </div>
+              <span class="text-[10px] font-mono text-slate-400 block truncate">Pág. 03 — Processos</span>
+            </button>
+
+            <button type="button" class="gallery-item card-clean p-1.5 text-left group focus:outline-none" data-src="./assets/images/aga-soldas-pag04.webp" data-title="AGA Soldas — Página 04 (Tanques e Tubulações)" data-desc="Casos de fabricação de tanques e tubulações industriais.">
+              <div class="h-28 rounded overflow-hidden bg-slate-950 mb-1.5">
+                <img src="./assets/images/aga-soldas-pag04.webp" alt="Página 04" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200" loading="lazy">
+              </div>
+              <span class="text-[10px] font-mono text-slate-400 block truncate">Pág. 04 — Tanques</span>
+            </button>
+
+            <button type="button" class="gallery-item card-clean p-1.5 text-left group focus:outline-none" data-src="./assets/images/aga-soldas-pag05.webp" data-title="AGA Soldas — Página 05 (Obras e Montagem)" data-desc="Histórico de projetos industriais e clientes atendidos.">
+              <div class="h-28 rounded overflow-hidden bg-slate-950 mb-1.5">
+                <img src="./assets/images/aga-soldas-pag05.webp" alt="Página 05" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200" loading="lazy">
+              </div>
+              <span class="text-[10px] font-mono text-slate-400 block truncate">Pág. 05 — Obras</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- BLOCO 4: UM TOQUE DE AMOR & TOPLANCHE GASTRONOMIA -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <!-- Um Toque de Amor -->
+          <div class="card-clean p-6 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-2">
+                <span class="text-rose-400">Identidade Visual</span>
+                <span>Story &amp; Redes</span>
+              </div>
+              <h3 class="text-base font-semibold text-white">Um Toque de Amor</h3>
+              <p class="text-xs text-slate-400 leading-relaxed mt-1 mb-4">
+                Composição visual e peça de comunicação desenvolvida para o projeto Um Toque de Amor com foco em sensibilidade e estética acolhedora.
+              </p>
+              <button type="button" class="gallery-item w-full card-clean p-2 text-left group focus:outline-none" data-src="./assets/images/um-toque-de-amor.webp" data-title="Um Toque de Amor — Peça Visual" data-desc="Arte diagramada para redes sociais e comunicação institucional de Um Toque de Amor.">
+                <div class="h-44 rounded-lg overflow-hidden bg-slate-950 mb-1.5">
+                  <img src="./assets/images/um-toque-de-amor.webp" alt="Um Toque de Amor" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200" loading="lazy">
+                </div>
+                <span class="text-xs font-medium text-white">Clique para ver em tamanho real</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Toplanche Gastronomia -->
+          <div class="card-clean p-6 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-2">
+                <span class="text-emerald-400">Gastronomia</span>
+                <span>Cardápio &amp; Delivery</span>
+              </div>
+              <h3 class="text-base font-semibold text-white">Toplanche — Engenharia de Cardápio</h3>
+              <p class="text-xs text-slate-400 leading-relaxed mt-1 mb-4">
+                Cardápio visual de alta legibilidade desenvolvido para hamburgueria e delivery, com diagramação clara de preços, combos e itens.
+              </p>
+              <button type="button" class="gallery-item w-full card-clean p-2 text-left group focus:outline-none" data-src="./assets/images/toplanche-menu.webp" data-title="Toplanche — Cardápio Completo" data-desc="Cardápio estruturado para impressão e envio digital no WhatsApp de clientes.">
+                <div class="h-44 rounded-lg overflow-hidden bg-slate-950 mb-1.5">
+                  <img src="./assets/images/toplanche-menu.webp" alt="Toplanche Menu" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200" loading="lazy">
+                </div>
+                <span class="text-xs font-medium text-white">Clique para ver o cardápio completo</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -472,7 +614,7 @@
       <div class="card-clean p-6 sm:p-8 text-center max-w-xl mx-auto">
         <h2 class="text-lg sm:text-xl font-semibold text-white">Vamos conversar?</h2>
         <p class="text-xs sm:text-sm text-slate-300 mt-2 leading-relaxed">
-          Seja para trocar ideias sobre desenvolvimento e design, projetos acadêmicos ou oportunidades profissionais, sinta-se à vontade para entrar em contato.
+          Seja para trocar ideias sobre desenvolvimento e design, projetos acadêmicos ou simplesmente bater um papo, meus canais estão abertos.
         </p>
 
         <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
@@ -502,7 +644,7 @@
 
   </main>
 
-  <!-- Rodapé Discreto -->
+  <!-- Rodapé -->
   <footer class="mt-20 py-8 border-t border-white/[0.06] text-center text-xs font-mono text-slate-500">
     <div class="max-w-5xl mx-auto px-5 flex flex-col sm:flex-row items-center justify-between gap-2">
       <p>Victor Hugo Santana Sousa · Eunápolis, Bahia</p>
@@ -510,23 +652,22 @@
     </div>
   </footer>
 
-  <!-- Lightbox Simples & Rápido -->
-  <div id="lightbox" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Visualização da imagem">
-    <button type="button" id="closeLightbox" class="absolute top-4 right-4 w-10 h-10 rounded-lg bg-white/10 text-white inline-flex items-center justify-center hover:bg-white/20 transition-colors" aria-label="Fechar">
+  <!-- Lightbox Modal com Navegação entre Imagens -->
+  <div id="lightbox" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Visualização da imagem">
+    <button type="button" id="closeLightbox" class="absolute top-4 right-4 w-10 h-10 rounded-lg bg-white/10 text-white inline-flex items-center justify-center hover:bg-white/20 transition-colors z-10" aria-label="Fechar">
       <i data-lucide="x" class="w-5 h-5"></i>
     </button>
-    <div class="max-w-3xl w-full flex flex-col items-center">
-      <img id="lightboxImg" src="" alt="" class="max-h-[75vh] max-w-full object-contain rounded-lg border border-white/10 shadow-xl mb-3">
+    
+    <div class="max-w-4xl w-full flex flex-col items-center">
+      <img id="lightboxImg" src="" alt="" class="max-h-[75vh] max-w-full object-contain rounded-lg border border-white/10 shadow-2xl mb-3">
       <h3 id="lightboxTitle" class="text-sm font-semibold text-white text-center"></h3>
       <p id="lightboxDesc" class="text-xs text-slate-400 text-center max-w-md mt-0.5"></p>
     </div>
   </div>
 
   <script>
-    // Inicialização leve de ícones
     lucide.createIcons();
 
-    // Lightbox Modal
     const lb = document.getElementById('lightbox');
     const lbImg = document.getElementById('lightboxImg');
     const lbTitle = document.getElementById('lightboxTitle');
