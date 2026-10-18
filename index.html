@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Victor Hugo — Trajetória, Projetos & Acervo de Design | JUST ME 🌙</title>
-  <meta name="description" content="Registro pessoal, currículo e acervo de trabalhos de Victor Hugo Santana Sousa (@Victorapenas): SaaS Chá de Casa, decks de apresentação, artes e formação no IFBA.">
+  <title>Victor Hugo — Trajetória, Projetos & Acervo Visual | JUST ME 🌙</title>
+  <meta name="description" content="Acervo visual e trajetória de Victor Hugo Santana Sousa (@Victorapenas). Desenvolvedor Fullstack e Design Engineer no IFBA Eunápolis.">
   <meta name="author" content="Victor Hugo Santana Sousa">
   <meta name="theme-color" content="#080C16">
   <link rel="icon" type="image/svg+xml" href="./assets/images/favicon.svg">
@@ -13,11 +13,11 @@
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pt_BR">
   <meta property="og:site_name" content="Victor Hugo — JUST ME 🌙">
-  <meta property="og:title" content="Victor Hugo — Trajetória, Projetos & Acervo de Design | JUST ME 🌙">
-  <meta property="og:description" content="Conheça a história pessoal, formação no IFBA, SaaS Chá de Casa e apresentações de design de Victor Hugo.">
+  <meta property="og:title" content="Victor Hugo — Trajetória, Projetos & Acervo Visual | JUST ME 🌙">
+  <meta property="og:description" content="Acervo visual de projetos: SaaS Chá de Casa, decks de apresentação, artes gráficas e formação no IFBA.">
   <meta property="og:image" content="./assets/images/victor-portrait-hero.webp">
 
-  <!-- Fontes Leves e Equilibradas: Inter + Plus Jakarta Sans -->
+  <!-- Fontes Leves e Neutras: Inter + Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
@@ -32,8 +32,13 @@
             brand: {
               dark: '#080C16',
               surface: '#0F1626',
+              surfaceLight: '#141E33',
+              border: 'rgba(255, 255, 255, 0.08)',
               accent: '#38BDF8',
-              indigo: '#6366F1'
+              indigo: '#6366F1',
+              violet: '#A855F7',
+              pink: '#EC4899',
+              gold: '#F59E0B'
             }
           },
           fontFamily: {
@@ -47,23 +52,67 @@
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
+    /* Reset & Base ultraleve para 60fps */
     html, body {
       background: #080C16;
       color: #E2E8F0;
       font-family: 'Inter', system-ui, sans-serif;
       text-rendering: optimizeLegibility;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
-    .card-clean {
-      background: rgba(15, 22, 38, 0.7);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 1rem;
-      transition: border-color 0.2s ease, transform 0.2s ease;
+    /* Interactive Canvas Background */
+    #ambientCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.45;
     }
-    .card-clean:hover {
+
+    /* Cards com efeito translúcido limpo */
+    .glass-card {
+      background: rgba(15, 22, 38, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 1.25rem;
+      transition: border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .glass-card:hover {
       border-color: rgba(56, 189, 248, 0.35);
-      transform: translateY(-2px);
+      box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Animated Border Beam */
+    .border-beam {
+      position: relative;
+      overflow: hidden;
+    }
+    .border-beam::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      background: conic-gradient(from var(--beam-deg, 0deg), transparent 70%, rgba(56, 189, 248, 0.7), rgba(99, 102, 241, 0.8), transparent);
+      animation: rotateBeam 8s linear infinite;
+      z-index: 0;
+      border-radius: inherit;
+    }
+    .border-beam > * {
+      position: relative;
+      z-index: 1;
+    }
+    @keyframes rotateBeam {
+      to { --beam-deg: 360deg; }
+    }
+    @property --beam-deg {
+      syntax: '<angle>';
+      inherits: false;
+      initial-value: 0deg;
     }
 
     /* Lightbox Modal */
@@ -77,20 +126,23 @@
       pointer-events: auto;
     }
 
-    /* Scrollbar simples */
+    /* Custom Scrollbar */
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: #080C16; }
     ::-webkit-scrollbar-thumb { background: #1E293B; border-radius: 3px; }
     ::-webkit-scrollbar-thumb:hover { background: #334155; }
   </style>
 </head>
-<body class="selection:bg-cyan-500/20 selection:text-cyan-200">
+<body class="selection:bg-cyan-500/20 selection:text-cyan-200 relative">
+
+  <!-- Ambient Interactive Canvas (60fps Particles & Glow) -->
+  <canvas id="ambientCanvas"></canvas>
 
   <!-- Header Superior -->
   <header class="sticky top-0 z-40 bg-[#080C16]/90 backdrop-blur-md border-b border-white/[0.06]">
     <div class="max-w-5xl mx-auto px-5 h-16 flex items-center justify-between">
       <a href="#inicio" class="flex items-center gap-3 group">
-        <img src="./assets/images/vh-logo.svg" alt="Victor Hugo" class="w-8 h-8 rounded-lg">
+        <img src="./assets/images/vh-logo.svg" alt="Victor Hugo" class="w-8 h-8 rounded-lg shadow-sm">
         <div class="leading-tight">
           <span class="block font-semibold text-sm text-white group-hover:text-brand-accent transition-colors">Victor Hugo</span>
           <span class="block text-[11px] font-mono text-slate-400">JUST ME 🌙</span>
@@ -100,17 +152,19 @@
       <!-- Navegação Interna -->
       <nav class="hidden sm:flex items-center gap-6 text-xs font-medium text-slate-300">
         <a href="#sobre" class="hover:text-white transition-colors">Sobre</a>
-        <a href="#trajetoria" class="hover:text-white transition-colors">Currículo &amp; Formação</a>
+        <a href="#trajetoria" class="hover:text-white transition-colors">Trajetória</a>
         <a href="#projetos-web" class="hover:text-white transition-colors">Projetos Web</a>
-        <a href="#design-materiais" class="hover:text-white transition-colors">Acervo de Design</a>
-        <a href="#contato" class="hover:text-white transition-colors">Contato</a>
+        <a href="#design-materiais" class="hover:text-white transition-colors">Acervo Gráfico</a>
+        <a href="#arquitetura-ia" class="hover:text-white transition-colors">Engenharia &amp; MCPs</a>
+        <a href="#contatos" class="hover:text-white transition-colors">Conexão</a>
       </nav>
 
+      <!-- Apenas GitHub & LinkedIn -->
       <div class="flex items-center gap-2">
-        <a href="https://github.com/Victorapenas" target="_blank" rel="noopener" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/[0.05] transition-colors" title="GitHub">
+        <a href="https://github.com/Victorapenas" target="_blank" rel="noopener" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/[0.05] transition-colors" title="Ver GitHub (@Victorapenas)">
           <i data-lucide="github" class="w-4 h-4"></i>
         </a>
-        <a href="https://www.linkedin.com/in/victor-hugo-santana-sousa-947b97364" target="_blank" rel="noopener" class="p-2 rounded-lg text-slate-400 hover:text-sky-400 hover:bg-white/[0.05] transition-colors" title="LinkedIn">
+        <a href="https://www.linkedin.com/in/victor-hugo-santana-sousa-947b97364" target="_blank" rel="noopener" class="p-2 rounded-lg text-slate-400 hover:text-sky-400 hover:bg-white/[0.05] transition-colors" title="Ver LinkedIn">
           <i data-lucide="linkedin" class="w-4 h-4"></i>
         </a>
       </div>
@@ -118,52 +172,55 @@
   </header>
 
   <!-- Conteúdo Principal -->
-  <main id="inicio" class="max-w-5xl mx-auto px-5 py-12 space-y-20">
+  <main id="inicio" class="max-w-5xl mx-auto px-5 py-10 space-y-24 relative z-10">
 
-    <!-- HERO / APRESENTAÇÃO PESSOAL -->
+    <!-- HERO / APRESENTAÇÃO PESSOAL ILUSTRADA -->
     <section id="sobre" class="pt-4">
       <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-        <!-- Texto & Apresentação -->
+        <!-- Lado Esquerdo: Identidade & Storytelling -->
         <div class="md:col-span-8 space-y-4">
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/10 text-xs font-mono text-slate-300">
-            <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
-            <span>Eunápolis, Bahia · Desenvolvedor Fullstack &amp; Designer</span>
+            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+            <span>IFBA Eunápolis · Desenvolvedor Fullstack &amp; Design Engineer</span>
           </div>
 
           <h1 class="text-2xl sm:text-3xl md:text-4xl font-semibold text-white tracking-tight leading-snug">
-            Olá, eu sou o Victor Hugo.<br>
-            <span class="text-slate-400 font-normal text-xl sm:text-2xl">Aqui conto minha história e compartilho os materiais que desenvolvi.</span>
+            Victor Hugo Santana Sousa<br>
+            <span class="text-slate-400 font-normal text-xl sm:text-2xl">Acervo pessoal de engenharia de software e direção visual.</span>
           </h1>
 
           <p class="text-slate-300 text-sm sm:text-base leading-relaxed font-normal">
-            Não estou aqui vendendo produtos ou serviços. Este site é o meu currículo aberto e um acervo para você conhecer um pouco sobre mim: minha formação no <strong>IFBA</strong> (onde atuei como monitor de programação web), minha função como <strong>COO na MBV Company</strong> e os projetos reais de software e design gráfico que já realizei.
+            Sou graduando em <strong>Análise e Desenvolvimento de Sistemas</strong> pelo <strong>IFBA</strong> (onde me formei no Técnico em Informática Integrado e atuei como monitor oficial de programação web e PHP). Criei este espaço como um acervo visual: os elementos gráficos abaixo mostram os trabalhos que construí, com os textos servindo como guia complementar.
           </p>
 
           <p class="text-slate-400 text-sm leading-relaxed">
-            Aqui você encontra desde o <strong>Chá de Casa</strong> (plataforma SaaS completa em Laravel com PIX que hospedo na Hostinger) até apresentações comerciais multi-páginas de trailers para a <strong>Garagem</strong>, projetos industriais da <strong>AGA Soldas</strong>, identidade e banners do cantor <strong>Gaab Lopes</strong> e peças visuais como <strong>Um Toque de Amor</strong> e <strong>Toplanche</strong>.
+            Não tenho produtos à venda aqui. O objetivo é que você conheça os meus projetos de forma real e imersiva: a plataforma SaaS <strong>Chá de Casa</strong> em produção na Hostinger, as lâminas comerciais dos trailers da <strong>Garagem</strong>, a identidade musical do <strong>Gaab Lopes</strong>, o catálogo industrial da <strong>AGA Soldas</strong> e as peças visuais de <strong>Um Toque de Amor</strong> e <strong>Toplanche</strong>.
           </p>
 
-          <!-- Ações Simples -->
+          <!-- Links Rápidos (Apenas GitHub & LinkedIn) -->
           <div class="pt-2 flex flex-wrap items-center gap-3 text-xs">
-            <a href="#design-materiais" class="px-4 py-2 rounded-lg bg-white text-slate-900 font-medium hover:bg-slate-200 transition-colors inline-flex items-center gap-1.5">
-              <span>Ver acervo de design</span>
-              <i data-lucide="arrow-down" class="w-3.5 h-3.5"></i>
+            <a href="https://github.com/Victorapenas" target="_blank" rel="noopener" class="px-4 py-2 rounded-lg bg-white text-slate-900 font-medium hover:bg-slate-200 transition-colors inline-flex items-center gap-2">
+              <i data-lucide="github" class="w-4 h-4"></i>
+              <span>GitHub Oficial (@Victorapenas)</span>
             </a>
-            <a href="#projetos-web" class="px-4 py-2 rounded-lg bg-white/[0.05] border border-white/10 text-white hover:bg-white/10 transition-colors inline-flex items-center gap-1.5">
-              <span>Ver projetos web</span>
-              <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            <a href="https://www.linkedin.com/in/victor-hugo-santana-sousa-947b97364" target="_blank" rel="noopener" class="px-4 py-2 rounded-lg bg-white/[0.05] border border-white/10 text-white hover:bg-white/10 transition-colors inline-flex items-center gap-2">
+              <i data-lucide="linkedin" class="w-4 h-4 text-sky-400"></i>
+              <span>LinkedIn</span>
             </a>
             <span class="font-mono text-slate-500 py-1 px-2">Assinatura: JUST ME 🌙</span>
           </div>
         </div>
 
-        <!-- Foto Pessoal -->
+        <!-- Lado Direito: Retrato com Glow & Selo -->
         <div class="md:col-span-4 flex justify-center md:justify-end">
-          <div class="relative w-48 sm:w-56 rounded-2xl overflow-hidden border border-white/10 shadow-lg bg-slate-900">
-            <img src="./assets/images/victor-portrait-hero.webp" alt="Foto de Victor Hugo Santana" width="400" height="400" class="w-full h-auto object-cover object-center" fetchpriority="high" decoding="async">
-            <div class="p-3 bg-slate-950/80 border-t border-white/10 text-center">
-              <span class="block text-xs font-medium text-white">Victor Hugo Santana</span>
-              <span class="block text-[11px] font-mono text-slate-400">IFBA · MBV Company</span>
+          <div class="relative w-52 sm:w-60 rounded-2xl overflow-hidden glass-card p-2 border border-white/15">
+            <div class="rounded-xl overflow-hidden bg-slate-950 relative">
+              <img src="./assets/images/victor-portrait-hero.webp" alt="Victor Hugo Santana" width="400" height="400" class="w-full h-auto object-cover object-center" fetchpriority="high" decoding="async">
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+              <div class="absolute bottom-3 inset-x-3 text-center">
+                <span class="block text-xs font-semibold text-white">Victor Hugo Santana</span>
+                <span class="block text-[11px] font-mono text-cyan-300">IFBA · ADS &amp; Informática</span>
+              </div>
             </div>
           </div>
         </div>
@@ -173,400 +230,411 @@
     <!-- TRAJETÓRIA, CURRÍCULO & FORMAÇÃO -->
     <section id="trajetoria" class="pt-6 border-t border-white/[0.06]">
       <div class="mb-8">
-        <h2 class="text-xl sm:text-2xl font-semibold text-white tracking-tight">Trajetória &amp; Formação</h2>
-        <p class="text-xs sm:text-sm text-slate-400 mt-1">Minha base acadêmica no IFBA, monitoria de código e atuação operacional.</p>
+        <h2 class="text-xl sm:text-2xl font-semibold text-white tracking-tight">Trajetória Acadêmica &amp; Formação</h2>
+        <p class="text-xs sm:text-sm text-slate-400 mt-1">Minha base de ciência da computação e docência prática no IFBA.</p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <!-- IFBA Formação -->
-        <div class="card-clean p-6 flex flex-col justify-between">
+        <div class="glass-card p-6 flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-2">
               <span class="text-brand-accent">2021 — Presente</span>
               <span>Educação Federal</span>
             </div>
             <h3 class="text-base font-semibold text-white">IFBA — Campus Eunápolis</h3>
-            <p class="text-xs text-slate-300 font-medium mt-0.5">Técnico em Informática Integrado &amp; ADS</p>
+            <p class="text-xs text-slate-300 font-medium mt-0.5">Técnico em Informática &amp; ADS</p>
             <p class="text-xs text-slate-400 leading-relaxed mt-3">
-              Base técnica e científica em algoritmos, modelagem de banco de dados relacional (MySQL), arquitetura de sistemas e engenharia de software. Atualmente cursando a graduação em Análise e Desenvolvimento de Sistemas.
+              Formação em algoritmos, modelagem de banco de dados relacional (MySQL), arquitetura de software e sistemas web. Atualmente graduando em Análise e Desenvolvimento de Sistemas.
             </p>
           </div>
           <div class="mt-4 pt-3 border-t border-white/[0.06] flex flex-wrap gap-1.5">
             <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">Algoritmos</span>
-            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">Banco de Dados MySQL</span>
-            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">Engenharia de Software</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">MySQL</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">Engenharia Web</span>
           </div>
         </div>
 
         <!-- Monitoria no IFBA -->
-        <div class="card-clean p-6 flex flex-col justify-between">
+        <div class="glass-card p-6 flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-2">
               <span class="text-emerald-400">Monitor Oficial</span>
-              <span>Apoio Pedagógico</span>
+              <span>Docência</span>
             </div>
-            <h3 class="text-base font-semibold text-white">Monitoria de Programação Web &amp; PHP</h3>
-            <p class="text-xs text-slate-300 font-medium mt-0.5">Instituto Federal da Bahia</p>
+            <h3 class="text-base font-semibold text-white">Monitoria de Programação Web</h3>
+            <p class="text-xs text-slate-300 font-medium mt-0.5">Ensino de PHP &amp; Web</p>
             <p class="text-xs text-slate-400 leading-relaxed mt-3">
-              Atuação como monitor oficial auxiliando estudantes no aprendizado de lógica de programação, sintaxe PHP, formulários dinâmicos, sessões, integração com banco de dados e depuração de erros em aplicações web.
+              Orientação a estudantes no aprendizado de lógica de programação, arquitetura cliente-servidor em PHP, tratamento de dados, formulários dinâmicos e depuração de código.
             </p>
           </div>
           <div class="mt-4 pt-3 border-t border-white/[0.06] flex flex-wrap gap-1.5">
             <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">PHP</span>
-            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">HTML5 &amp; CSS3</span>
-            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">Didática &amp; Mentoria</span>
-          </div>
-        </div>
-
-        <!-- Atuação MBV Company -->
-        <div class="card-clean p-6 flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-2">
-              <span class="text-indigo-400">Experiência Profissional</span>
-              <span>Operações</span>
-            </div>
-            <h3 class="text-base font-semibold text-white">COO na MBV Company</h3>
-            <p class="text-xs text-slate-300 font-medium mt-0.5">Diretoria de Operações e Tecnologia</p>
-            <p class="text-xs text-slate-400 leading-relaxed mt-3">
-              Supervisão de fluxos operacionais, suporte a equipamentos e hardware, além da manutenção e estruturação de softwares internos de controle e produtividade da empresa.
-            </p>
-          </div>
-          <div class="mt-4 pt-3 border-t border-white/[0.06] flex flex-wrap gap-1.5">
-            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">Gestão Operacional</span>
-            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">Infraestrutura</span>
-            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">Sistemas Internos</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">HTML5/CSS3</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">Resolução de Bugs</span>
           </div>
         </div>
 
         <!-- Competências e Stack -->
-        <div class="card-clean p-6 flex flex-col justify-between">
+        <div class="glass-card p-6 flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-2">
-              <span class="text-cyan-400">Conhecimentos Técnicos</span>
-              <span>Stack</span>
+              <span class="text-cyan-400">Habilidades Técnicas</span>
+              <span>Ferramentas</span>
             </div>
-            <h3 class="text-base font-semibold text-white">Tecnologias &amp; Softwares</h3>
-            <p class="text-xs text-slate-300 font-medium mt-0.5">Ferramentas que utilizo</p>
+            <h3 class="text-base font-semibold text-white">Stack de Engenharia &amp; Design</h3>
+            <p class="text-xs text-slate-300 font-medium mt-0.5">Linguagens e Softwares</p>
             <p class="text-xs text-slate-400 leading-relaxed mt-3">
-              Criação de projetos unindo desenvolvimento back-end e front-end com design visual e diagramação em softwares de edição gráfica.
+              Desenvolvimento de ponta a ponta integrando arquitetura back-end (Laravel, SQL) com interfaces fluidas e diagramação gráfica no Photoshop e Illustrator.
             </p>
           </div>
           <div class="mt-4 pt-3 border-t border-white/[0.06] flex flex-wrap gap-1.5">
-            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">PHP / Laravel</span>
-            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">JavaScript / React</span>
-            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">Tailwind CSS</span>
-            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">MySQL</span>
-            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">Photoshop &amp; Illustrator</span>
-            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">Figma</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">Laravel / PHP</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">React / Tailwind</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300">Photoshop / Illustrator</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- PROJETOS EM DESTAQUE (WEB & SAAS) -->
+    <!-- PROJETOS WEB: MOCKUP INTERATIVO E IMERSÃO VISUAL -->
     <section id="projetos-web" class="pt-6 border-t border-white/[0.06]">
       <div class="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
         <div>
-          <h2 class="text-xl sm:text-2xl font-semibold text-white tracking-tight">Projetos Web &amp; Aplicações</h2>
-          <p class="text-xs sm:text-sm text-slate-400 mt-1">Sistemas funcionais e sites que desenvolvi e coloquei no ar.</p>
+          <h2 class="text-xl sm:text-2xl font-semibold text-white tracking-tight">Projetos Web &amp; Software</h2>
+          <p class="text-xs sm:text-sm text-slate-400 mt-1">Sistemas funcionais colocados em produção.</p>
         </div>
         <span class="text-xs font-mono text-slate-500">Desenvolvimento de Software</span>
       </div>
 
-      <div class="space-y-6">
-        <!-- Chá de Casa / CháVIP (Destaque Principal) -->
-        <article class="card-clean p-6 sm:p-8 bg-gradient-to-br from-slate-900/90 to-[#0F1626]">
-          <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
-            <div>
-              <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[11px] font-mono mb-2">
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span>Hospedado na Hostinger · Em Produção</span>
-              </div>
-              <h3 class="text-lg sm:text-xl font-semibold text-white">CháVIP — Plataforma de Eventos e Lista de Presentes</h3>
-              <p class="text-xs font-mono text-amber-400 mt-0.5">
-                <a href="https://chadecasa.mbvcompany.com/" target="_blank" rel="noopener" class="hover:underline">https://chadecasa.mbvcompany.com/ ↗</a>
-              </p>
+      <!-- DISPOSITIVO INTERATIVO DO CHÁVIP (SAAS HOSTINGER) -->
+      <article class="glass-card border-beam p-6 sm:p-8 space-y-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[11px] font-mono mb-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span>Em Produção na Hostinger · Laravel 11</span>
             </div>
-
-            <div class="flex items-center gap-2">
-              <a href="https://chadecasa.mbvcompany.com/" target="_blank" rel="noopener" class="px-3.5 py-1.5 rounded-lg bg-amber-400 hover:bg-amber-300 text-slate-950 font-medium text-xs inline-flex items-center gap-1.5 transition-colors">
-                <span>Acessar Site</span>
-                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-              </a>
-              <a href="https://github.com/Victorapenas/site_cha_de_casa" target="_blank" rel="noopener" class="px-3.5 py-1.5 rounded-lg bg-white/[0.05] hover:bg-white/10 border border-white/10 text-white text-xs inline-flex items-center gap-1.5 transition-colors">
-                <i data-lucide="github" class="w-3.5 h-3.5"></i>
-                <span>Código</span>
-              </a>
-            </div>
+            <h3 class="text-lg sm:text-xl font-semibold text-white">CháVIP — Plataforma de Eventos &amp; Presentes com PIX</h3>
           </div>
 
-          <p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-4">
-            O <strong>CháVIP</strong> é uma plataforma SaaS em <strong>Laravel 11</strong> que criei para gerenciar chás de casa nova, casamentos e aniversários. O sistema possui arquitetura multi-tenant (cada anfitrião tem sua página e painel próprio), importação automática de presentes via link de lojas externas (web scraping de título, foto e preço) e recebimento direto de presentes em dinheiro via <strong>PIX</strong> sem taxa de intermediação retendo o valor.
-          </p>
+          <div class="flex items-center gap-2">
+            <a href="https://chadecasa.mbvcompany.com/" target="_blank" rel="noopener" class="px-3.5 py-1.5 rounded-lg bg-amber-400 hover:bg-amber-300 text-slate-950 font-medium text-xs inline-flex items-center gap-1.5 transition-colors">
+              <span>Abrir Site Oficial</span>
+              <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            </a>
+            <a href="https://github.com/Victorapenas/site_cha_de_casa" target="_blank" rel="noopener" class="px-3.5 py-1.5 rounded-lg bg-white/[0.05] hover:bg-white/10 border border-white/10 text-white text-xs inline-flex items-center gap-1.5 transition-colors">
+              <i data-lucide="github" class="w-3.5 h-3.5"></i>
+              <span>Repositório</span>
+            </a>
+          </div>
+        </div>
 
-          <div class="flex flex-wrap gap-2 text-xs font-mono text-slate-300">
-            <span class="px-2.5 py-1 rounded bg-white/[0.04]">Laravel 11</span>
-            <span class="px-2.5 py-1 rounded bg-white/[0.04]">PHP 8.2</span>
-            <span class="px-2.5 py-1 rounded bg-white/[0.04]">MySQL</span>
-            <span class="px-2.5 py-1 rounded bg-white/[0.04]">PIX Integrado</span>
-            <span class="px-2.5 py-1 rounded bg-white/[0.04]">Web Scraping</span>
-            <span class="px-2.5 py-1 rounded bg-white/[0.04]">Hostinger VPS</span>
+        <!-- MOCKUP VISUAL INTERATIVO DO BROWSER COM TABS -->
+        <div class="rounded-xl border border-white/10 overflow-hidden bg-slate-950 shadow-2xl">
+          <!-- Barra do Navegador -->
+          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900 border-b border-white/10">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-rose-500/80"></span>
+              <span class="w-3 h-3 rounded-full bg-amber-500/80"></span>
+              <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span>
+              <div class="ml-3 px-3 py-1 rounded-md bg-slate-950 text-[11px] font-mono text-slate-400 flex items-center gap-1.5 border border-white/[0.06]">
+                <i data-lucide="lock" class="w-3 h-3 text-emerald-400"></i>
+                <span>https://chadecasa.mbvcompany.com/</span>
+              </div>
+            </div>
+            <span class="text-[10px] font-mono text-emerald-400">PRODUÇÃO ATIVA</span>
+          </div>
+
+          <!-- Abas Interativas de Demonstração Visual -->
+          <div class="p-3 bg-slate-900/60 border-b border-white/[0.06] flex flex-wrap gap-2">
+            <button type="button" class="cha-tab px-3 py-1.5 rounded-lg text-xs font-mono transition-colors bg-white/10 text-white border border-white/15" data-tab="scraping">
+              🎁 1. Scraping de Presentes
+            </button>
+            <button type="button" class="cha-tab px-3 py-1.5 rounded-lg text-xs font-mono transition-colors text-slate-400 hover:text-white" data-tab="pix">
+              💰 2. PIX Direto Dinâmico
+            </button>
+            <button type="button" class="cha-tab px-3 py-1.5 rounded-lg text-xs font-mono transition-colors text-slate-400 hover:text-white" data-tab="rsvp">
+              📋 3. Gestão RSVP de Convidados
+            </button>
+          </div>
+
+          <!-- Conteúdo Visual da Aba Selecionada -->
+          <div class="p-6 bg-slate-950 min-h-[180px] flex items-center justify-center" id="chaTabContent">
+            <!-- Padrão: Scraping -->
+            <div class="w-full max-w-xl space-y-3">
+              <div class="flex items-center gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/10">
+                <i data-lucide="link" class="w-5 h-5 text-amber-400 shrink-0"></i>
+                <div class="text-xs truncate font-mono text-slate-300">https://amazon.com.br/dp/B08N5WRWNW (Link colado pelo anfitrião)</div>
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 ml-auto shrink-0">Scraped 0.3s</span>
+              </div>
+              <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-900 border border-white/10">
+                <div class="w-14 h-14 rounded-lg bg-amber-500/20 flex items-center justify-center text-2xl shrink-0">☕</div>
+                <div>
+                  <h4 class="text-xs font-semibold text-white">Cafeteira Espresso Automática</h4>
+                  <p class="text-[11px] text-slate-400">Foto, título e preço (R$ 389,00) extraídos automaticamente sem cadastro manual.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+          O <strong>CháVIP</strong> é uma plataforma SaaS em <strong>Laravel 11</strong> projetada com multi-tenancy para eliminar taxas de intermediação em eventos. Cada anfitrião possui seu painel, importa produtos colando links de qualquer loja e recebe contribuições via <strong>PIX direto na sua própria conta</strong>, com acompanhamento de confirmações de presença (RSVP) em tempo real.
+        </p>
+      </article>
+
+      <!-- Grid com Sonbatera, MBV Viagens e Coworking -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+        <!-- Sonbatera -->
+        <article class="glass-card p-4 flex flex-col justify-between">
+          <div>
+            <div class="h-36 rounded-lg overflow-hidden bg-slate-950 mb-3 border border-white/[0.06]">
+              <img src="./assets/images/sonbatera-preview.webp" alt="Sonbatera Oficial" width="300" height="200" class="w-full h-full object-cover object-top" loading="lazy">
+            </div>
+            <h3 class="text-sm font-semibold text-white">Sonbatera Oficial</h3>
+            <p class="text-xs text-slate-400 leading-relaxed mt-1">
+              Website e portfólio oficial desenvolvido para o baterista profissional Sonbatera, com agenda, mídias e apresentação de palco.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-white/[0.06] flex items-center justify-between text-xs">
+            <a href="https://sonbatera-oficial.vercel.app" target="_blank" rel="noopener" class="text-brand-accent hover:underline inline-flex items-center gap-1">
+              <span>Ver no ar</span>
+              <i data-lucide="external-link" class="w-3 h-3"></i>
+            </a>
+            <a href="https://github.com/Victorapenas/son-batera" target="_blank" rel="noopener" class="text-slate-400 hover:text-white">GitHub</a>
           </div>
         </article>
 
-        <!-- Grid de Outros Projetos Web -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <!-- Sonbatera -->
-          <article class="card-clean p-5 flex flex-col justify-between">
-            <div>
-              <div class="h-36 rounded-lg overflow-hidden bg-slate-950 mb-3 border border-white/[0.06]">
-                <img src="./assets/images/sonbatera-preview.webp" alt="Sonbatera Oficial" width="300" height="200" class="w-full h-full object-cover object-top" loading="lazy" decoding="async">
-              </div>
-              <h3 class="text-sm font-semibold text-white">Sonbatera Oficial</h3>
-              <p class="text-xs text-slate-400 leading-relaxed mt-1">
-                Website e portfólio oficial desenvolvido para o baterista profissional Sonbatera, com agenda, vídeos e apresentação.
-              </p>
+        <!-- MBV Viagens -->
+        <article class="glass-card p-4 flex flex-col justify-between">
+          <div>
+            <div class="h-36 rounded-lg bg-gradient-to-br from-cyan-950/40 to-slate-900 flex flex-col items-center justify-center p-4 mb-3 border border-white/[0.06] text-center">
+              <i data-lucide="compass" class="w-8 h-8 text-cyan-400 mb-2"></i>
+              <span class="text-xs font-semibold text-white">MBV Viagens</span>
+              <span class="text-[10px] font-mono text-slate-400">Rateio de Custos em Grupo</span>
             </div>
-            <div class="mt-4 pt-3 border-t border-white/[0.06] flex items-center justify-between text-xs">
-              <a href="https://sonbatera-oficial.vercel.app" target="_blank" rel="noopener" class="text-brand-accent hover:underline inline-flex items-center gap-1">
-                <span>Ver no ar</span>
-                <i data-lucide="external-link" class="w-3 h-3"></i>
-              </a>
-              <a href="https://github.com/Victorapenas/son-batera" target="_blank" rel="noopener" class="text-slate-400 hover:text-white">GitHub</a>
-            </div>
-          </article>
+            <h3 class="text-sm font-semibold text-white">MBV Viagens &amp; Roteiros</h3>
+            <p class="text-xs text-slate-400 leading-relaxed mt-1">
+              Aplicação web com algoritmo de rateio para viagens em grupo, roteiro compartilhado e checklist de bagagem sem planilhas.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-white/[0.06] flex items-center justify-between text-xs">
+            <a href="https://passeio-mu.vercel.app" target="_blank" rel="noopener" class="text-brand-accent hover:underline inline-flex items-center gap-1">
+              <span>Ver no ar</span>
+              <i data-lucide="external-link" class="w-3 h-3"></i>
+            </a>
+            <a href="https://github.com/Victorapenas/mbv-viagens" target="_blank" rel="noopener" class="text-slate-400 hover:text-white">GitHub</a>
+          </div>
+        </article>
 
-          <!-- MBV Viagens -->
-          <article class="card-clean p-5 flex flex-col justify-between">
-            <div>
-              <div class="h-36 rounded-lg bg-gradient-to-br from-cyan-950/40 to-slate-900 flex flex-col items-center justify-center p-4 mb-3 border border-white/[0.06] text-center">
-                <i data-lucide="compass" class="w-8 h-8 text-cyan-400 mb-2"></i>
-                <span class="text-xs font-semibold text-white">MBV Viagens</span>
-                <span class="text-[10px] font-mono text-slate-400">Rateio de Custos em Grupo</span>
-              </div>
-              <h3 class="text-sm font-semibold text-white">MBV Viagens &amp; Roteiros</h3>
-              <p class="text-xs text-slate-400 leading-relaxed mt-1">
-                Aplicação web para organização de viagens em grupo, checklist e cálculo automático de rateio de despesas entre os viajantes.
-              </p>
+        <!-- Coworking Digital -->
+        <article class="glass-card p-4 flex flex-col justify-between">
+          <div>
+            <div class="h-36 rounded-lg overflow-hidden bg-slate-950 mb-3 border border-white/[0.06]">
+              <img src="./assets/images/mbv-dashboard.webp" alt="Dashboard Coworking" width="300" height="200" class="w-full h-full object-cover" loading="lazy">
             </div>
-            <div class="mt-4 pt-3 border-t border-white/[0.06] flex items-center justify-between text-xs">
-              <a href="https://passeio-mu.vercel.app" target="_blank" rel="noopener" class="text-brand-accent hover:underline inline-flex items-center gap-1">
-                <span>Ver no ar</span>
-                <i data-lucide="external-link" class="w-3 h-3"></i>
-              </a>
-              <a href="https://github.com/Victorapenas/mbv-viagens" target="_blank" rel="noopener" class="text-slate-400 hover:text-white">GitHub</a>
-            </div>
-          </article>
-
-          <!-- Coworking Digital -->
-          <article class="card-clean p-5 flex flex-col justify-between">
-            <div>
-              <div class="h-36 rounded-lg overflow-hidden bg-slate-950 mb-3 border border-white/[0.06]">
-                <img src="./assets/images/mbv-dashboard.webp" alt="Dashboard Coworking" width="300" height="200" class="w-full h-full object-cover" loading="lazy" decoding="async">
-              </div>
-              <h3 class="text-sm font-semibold text-white">Coworking Digital</h3>
-              <p class="text-xs text-slate-400 leading-relaxed mt-1">
-                Sistema corporativo interno com painel de tarefas e controle de permissões por perfil (admin, gestor e operador).
-              </p>
-            </div>
-            <div class="mt-4 pt-3 border-t border-white/[0.06] flex items-center justify-between text-xs">
-              <span class="text-slate-400 font-mono text-[11px]">Sistema Interno</span>
-              <a href="https://github.com/Victorapenas/COWORKING-DIGITAL" target="_blank" rel="noopener" class="text-slate-300 hover:text-white">GitHub</a>
-            </div>
-          </article>
-        </div>
+            <h3 class="text-sm font-semibold text-white">Coworking Digital</h3>
+            <p class="text-xs text-slate-400 leading-relaxed mt-1">
+              Sistema com painel de tarefas e controle de permissões por perfil de usuário (administrador, gestor e operador).
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-white/[0.06] flex items-center justify-between text-xs">
+            <span class="text-slate-400 font-mono text-[11px]">Sistema Interno</span>
+            <a href="https://github.com/Victorapenas/COWORKING-DIGITAL" target="_blank" rel="noopener" class="text-slate-300 hover:text-white">GitHub</a>
+          </div>
+        </article>
       </div>
     </section>
 
-    <!-- ACERVO DE DESIGN, APRESENTAÇÕES & IDENTIDADES VISUAIS -->
+    <!-- ACERVO DE DESIGN: SLIDERS INTERATIVOS E MATERIAIS COMPLETOS -->
     <section id="design-materiais" class="pt-6 border-t border-white/[0.06]">
       <div class="mb-8">
         <h2 class="text-xl sm:text-2xl font-semibold text-white tracking-tight">Acervo de Design &amp; Apresentações</h2>
         <p class="text-xs sm:text-sm text-slate-400 mt-1">
-          Materiais reais que criei no Photoshop e Illustrator: apresentações comerciais completas (PDFs multi-páginas de trailers), branding musical e identidade visual. Clique nas imagens para ampliar.
+          Apresentações comerciais completas (PDFs multi-páginas de trailers), branding musical e peças gráficas. Use os controles para folhear os projetos.
         </p>
       </div>
 
       <div class="space-y-12">
         
-        <!-- BLOCO 1: GARAGEM DOS TRAILERS (APRESENTAÇÃO MULTI-PÁGINAS) -->
-        <div class="card-clean p-6 sm:p-7 space-y-4">
+        <!-- PROJETO 1: GARAGEM DOS TRAILERS (SLIDER INTERATIVO DE LÂMINAS) -->
+        <div class="glass-card p-6 sm:p-7 space-y-5">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/[0.06] pb-4">
             <div>
               <span class="text-xs font-mono text-amber-400 uppercase tracking-wider block">Projeto 1 · Apresentação Comercial Completa</span>
-              <h3 class="text-lg font-semibold text-white">Garagem — Deck Comercial de Trailers (Modelo Retro)</h3>
+              <h3 class="text-lg font-semibold text-white">Garagem — Deck de Trailers (Modelo Retro)</h3>
             </div>
-            <span class="text-xs font-mono text-slate-400">PDF com várias páginas diagramadas</span>
-          </div>
-          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            Apresentação comercial e catálogo técnico completo desenvolvido para a venda de trailers gastronômicos personalizados. Abaixo estão as lâminas e páginas que compõem o material:
-          </p>
-
-          <!-- Grid das Lâminas do Trailer -->
-          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
-            <button type="button" class="gallery-item card-clean p-1.5 text-left group focus:outline-none" data-src="./assets/images/garagem-slide-01.webp" data-title="Garagem Retro — Página 01 (Capa Modelo Classic)" data-desc="Capa de apresentação institucional do modelo Classic.">
-              <div class="h-28 rounded overflow-hidden bg-slate-950 mb-1.5">
-                <img src="./assets/images/garagem-slide-01.webp" alt="Página 01" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200" loading="lazy">
-              </div>
-              <span class="text-[10px] font-mono text-slate-400 block truncate">Pág. 01 — Capa Classic</span>
-            </button>
-
-            <button type="button" class="gallery-item card-clean p-1.5 text-left group focus:outline-none" data-src="./assets/images/garagem-slide-02.webp" data-title="Garagem Retro — Página 02 (Apresentação & Conceito)" data-desc="Página institucional descrevendo o conceito e vantagens do trailer.">
-              <div class="h-28 rounded overflow-hidden bg-slate-950 mb-1.5">
-                <img src="./assets/images/garagem-slide-02.webp" alt="Página 02" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200" loading="lazy">
-              </div>
-              <span class="text-[10px] font-mono text-slate-400 block truncate">Pág. 02 — Conceito</span>
-            </button>
-
-            <button type="button" class="gallery-item card-clean p-1.5 text-left group focus:outline-none" data-src="./assets/images/garagem-slide-03.webp" data-title="Garagem Retro — Página 03 (Estrutura e Dimensões)" data-desc="Especificações dimensionais do modelo Classic.">
-              <div class="h-28 rounded overflow-hidden bg-slate-950 mb-1.5">
-                <img src="./assets/images/garagem-slide-03.webp" alt="Página 03" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200" loading="lazy">
-              </div>
-              <span class="text-[10px] font-mono text-slate-400 block truncate">Pág. 03 — Dimensões</span>
-            </button>
-
-            <button type="button" class="gallery-item card-clean p-1.5 text-left group focus:outline-none" data-src="./assets/images/garagem-slide-04.webp" data-title="Garagem Retro — Página 04 (Modelo Premium)" data-desc="Apresentação do acabamento Premium com opcionais de luxo.">
-              <div class="h-28 rounded overflow-hidden bg-slate-950 mb-1.5">
-                <img src="./assets/images/garagem-slide-04.webp" alt="Página 04" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200" loading="lazy">
-              </div>
-              <span class="text-[10px] font-mono text-slate-400 block truncate">Pág. 04 — Premium</span>
-            </button>
-
-            <button type="button" class="gallery-item card-clean p-1.5 text-left group focus:outline-none" data-src="./assets/images/garagem-slide-05.webp" data-title="Garagem Retro — Página 05 (Ficha Técnica)" data-desc="Ficha técnica com itens de série, materiais e elétrica.">
-              <div class="h-28 rounded overflow-hidden bg-slate-950 mb-1.5">
-                <img src="./assets/images/garagem-slide-05.webp" alt="Página 05" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200" loading="lazy">
-              </div>
-              <span class="text-[10px] font-mono text-slate-400 block truncate">Pág. 05 — Ficha Técnica</span>
-            </button>
-
-            <button type="button" class="gallery-item card-clean p-1.5 text-left group focus:outline-none" data-src="./assets/images/garagem-slide-06.webp" data-title="Garagem Retro — Página 06 (Galeria de Montagem)" data-desc="Galeria fotográfica de trailers finalizados e entregues.">
-              <div class="h-28 rounded overflow-hidden bg-slate-950 mb-1.5">
-                <img src="./assets/images/garagem-slide-06.webp" alt="Página 06" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200" loading="lazy">
-              </div>
-              <span class="text-[10px] font-mono text-slate-400 block truncate">Pág. 06 — Galeria Real</span>
-            </button>
+            <span class="text-xs font-mono text-slate-400">PDF multi-páginas diagramado</span>
           </div>
 
-          <!-- Peças Publicitárias da Garagem (Minicarregadeira) -->
-          <div class="pt-4 border-t border-white/[0.06]">
-            <span class="text-xs font-mono text-slate-400 block mb-2.5">Anúncios &amp; Peças Publicitárias para a Garagem:</span>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-              <button type="button" class="gallery-item card-clean p-1.5 text-left group focus:outline-none" data-src="./assets/images/minicarregadeira-anuncio-a.webp" data-title="Garagem — Anúncio Minicarregadeira (Versão A)" data-desc="Criativo de anúncio e marketing direto para minicarregadeira.">
-                <div class="h-28 rounded overflow-hidden bg-slate-950 mb-1.5">
-                  <img src="./assets/images/minicarregadeira-anuncio-a.webp" alt="Anúncio A" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200" loading="lazy">
-                </div>
-                <span class="text-[10px] font-mono text-slate-400 block truncate">Criativo Minicarregadeira A</span>
+          <!-- VISUALIZADOR DE SLIDE GRANDE COM NAVEGAÇÃO -->
+          <div class="space-y-3">
+            <div class="relative rounded-xl overflow-hidden bg-slate-950 border border-white/10 h-72 sm:h-96 flex items-center justify-center">
+              <img id="garagemHeroImg" src="./assets/images/garagem-slide-01.webp" alt="Lâmina Garagem" class="w-full h-full object-contain cursor-pointer" onclick="openLb(this.src, document.getElementById('garagemSlideTitle').textContent, 'Visualização em alta definição.')">
+              
+              <!-- Botão Anterior -->
+              <button type="button" id="prevGaragemBtn" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-slate-900/80 border border-white/20 text-white flex items-center justify-center hover:bg-slate-800 transition-colors" aria-label="Lâmina anterior">
+                <i data-lucide="chevron-left" class="w-5 h-5"></i>
               </button>
 
-              <button type="button" class="gallery-item card-clean p-1.5 text-left group focus:outline-none" data-src="./assets/images/minicarregadeira-anuncio-b.webp" data-title="Garagem — Anúncio Minicarregadeira (Versão B)" data-desc="Criativo em blocos de anúncio para tráfego pago.">
-                <div class="h-28 rounded overflow-hidden bg-slate-950 mb-1.5">
-                  <img src="./assets/images/minicarregadeira-anuncio-b.webp" alt="Anúncio B" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200" loading="lazy">
+              <!-- Botão Próximo -->
+              <button type="button" id="nextGaragemBtn" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-slate-900/80 border border-white/20 text-white flex items-center justify-center hover:bg-slate-800 transition-colors" aria-label="Próxima lâmina">
+                <i data-lucide="chevron-right" class="w-5 h-5"></i>
+              </button>
+
+              <!-- Legenda Inferior -->
+              <div class="absolute bottom-2 inset-x-2 py-1 px-3 rounded-lg bg-black/70 backdrop-blur-md text-[11px] font-mono text-slate-300 flex items-center justify-between">
+                <span id="garagemSlideTitle">Pág. 01 — Capa Modelo Classic</span>
+                <span id="garagemSlideCounter">1 / 6</span>
+              </div>
+            </div>
+
+            <!-- Faixa de Miniaturas Clicáveis -->
+            <div class="grid grid-cols-6 gap-2" id="garagemThumbStrip">
+              <button type="button" class="garagem-thumb rounded-lg overflow-hidden border-2 border-brand-accent h-16 bg-slate-950 transition-all opacity-100" data-idx="0" data-src="./assets/images/garagem-slide-01.webp" data-title="Pág. 01 — Capa Modelo Classic">
+                <img src="./assets/images/garagem-slide-01.webp" alt="Thumb 01" class="w-full h-full object-cover">
+              </button>
+              <button type="button" class="garagem-thumb rounded-lg overflow-hidden border border-white/10 h-16 bg-slate-950 transition-all opacity-60 hover:opacity-100" data-idx="1" data-src="./assets/images/garagem-slide-02.webp" data-title="Pág. 02 — Apresentação & Conceito">
+                <img src="./assets/images/garagem-slide-02.webp" alt="Thumb 02" class="w-full h-full object-cover">
+              </button>
+              <button type="button" class="garagem-thumb rounded-lg overflow-hidden border border-white/10 h-16 bg-slate-950 transition-all opacity-60 hover:opacity-100" data-idx="2" data-src="./assets/images/garagem-slide-03.webp" data-title="Pág. 03 — Estrutura e Dimensões">
+                <img src="./assets/images/garagem-slide-03.webp" alt="Thumb 03" class="w-full h-full object-cover">
+              </button>
+              <button type="button" class="garagem-thumb rounded-lg overflow-hidden border border-white/10 h-16 bg-slate-950 transition-all opacity-60 hover:opacity-100" data-idx="3" data-src="./assets/images/garagem-slide-04.webp" data-title="Pág. 04 — Acabamento Modelo Premium">
+                <img src="./assets/images/garagem-slide-04.webp" alt="Thumb 04" class="w-full h-full object-cover">
+              </button>
+              <button type="button" class="garagem-thumb rounded-lg overflow-hidden border border-white/10 h-16 bg-slate-950 transition-all opacity-60 hover:opacity-100" data-idx="4" data-src="./assets/images/garagem-slide-05.webp" data-title="Pág. 05 — Ficha Técnica Completa">
+                <img src="./assets/images/garagem-slide-05.webp" alt="Thumb 05" class="w-full h-full object-cover">
+              </button>
+              <button type="button" class="garagem-thumb rounded-lg overflow-hidden border border-white/10 h-16 bg-slate-950 transition-all opacity-60 hover:opacity-100" data-idx="5" data-src="./assets/images/garagem-slide-06.webp" data-title="Pág. 06 — Galeria de Montagem Real">
+                <img src="./assets/images/garagem-slide-06.webp" alt="Thumb 06" class="w-full h-full object-cover">
+              </button>
+            </div>
+          </div>
+
+          <!-- Peças de Anúncio da Minicarregadeira -->
+          <div class="pt-4 border-t border-white/[0.06]">
+            <span class="text-xs font-mono text-slate-400 block mb-2">Anúncios &amp; Criativos Publicitários da Garagem:</span>
+            <div class="grid grid-cols-2 gap-3">
+              <button type="button" class="gallery-item glass-card p-1.5 text-left group focus:outline-none" data-src="./assets/images/minicarregadeira-anuncio-a.webp" data-title="Garagem — Criativo Minicarregadeira A" data-desc="Criativo de anúncio em blocos para tráfego pago da Garagem.">
+                <div class="h-32 rounded overflow-hidden bg-slate-950 mb-1">
+                  <img src="./assets/images/minicarregadeira-anuncio-a.webp" alt="Criativo Minicarregadeira A" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200" loading="lazy">
                 </div>
-                <span class="text-[10px] font-mono text-slate-400 block truncate">Criativo Minicarregadeira B</span>
+                <span class="text-[11px] font-medium text-white truncate block">Criativo Minicarregadeira (Versão A)</span>
+              </button>
+              <button type="button" class="gallery-item glass-card p-1.5 text-left group focus:outline-none" data-src="./assets/images/minicarregadeira-anuncio-b.webp" data-title="Garagem — Criativo Minicarregadeira B" data-desc="Variação de criativo publicitário para teste A/B.">
+                <div class="h-32 rounded overflow-hidden bg-slate-950 mb-1">
+                  <img src="./assets/images/minicarregadeira-anuncio-b.webp" alt="Criativo Minicarregadeira B" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200" loading="lazy">
+                </div>
+                <span class="text-[11px] font-medium text-white truncate block">Criativo Minicarregadeira (Versão B)</span>
               </button>
             </div>
           </div>
         </div>
 
-        <!-- BLOCO 2: GAAB LOPES (BANNER DE YOUTUBE & FOTOS DO ARTISTA) -->
-        <div class="card-clean p-6 sm:p-7 space-y-4">
+        <!-- PROJETO 2: GAAB LOPES (BANNER DE YOUTUBE & FOTOS DO ARTISTA) -->
+        <div class="glass-card p-6 sm:p-7 space-y-4">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/[0.06] pb-4">
             <div>
               <span class="text-xs font-mono text-pink-400 uppercase tracking-wider block">Projeto 2 · Música &amp; Streaming</span>
               <h3 class="text-lg font-semibold text-white">Gaab Lopes — Banner de YouTube, Capas &amp; Fotos</h3>
             </div>
-            <span class="text-xs font-mono text-slate-400">Direção visual para canal de música</span>
+            <span class="text-xs font-mono text-slate-400">Identidade visual de artista musical</span>
           </div>
-          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            Desenvolvimento visual para o canal e presença digital do cantor Gaab Lopes, incluindo banner panorâmico para YouTube, tratamento fotográfico de estúdio e capa oficial.
-          </p>
 
-          <div class="grid grid-cols-1 sm:grid-cols-12 gap-3">
-            <!-- Banner Panorâmico Grande (8 colunas) -->
-            <button type="button" class="sm:col-span-8 gallery-item card-clean p-2 text-left group focus:outline-none" data-src="./assets/images/gaab-lopes-banner.webp" data-title="Gaab Lopes — Banner Oficial para YouTube" data-desc="Arte panorâmica de cabeçalho para o canal oficial de YouTube de Gaab Lopes.">
-              <div class="h-44 sm:h-52 rounded-lg overflow-hidden bg-slate-950 mb-2">
-                <img src="./assets/images/gaab-lopes-banner.webp" alt="Banner Gaab Lopes YouTube" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-200" loading="lazy">
-              </div>
-              <div class="px-1">
-                <span class="text-[10px] font-mono text-pink-400 uppercase">Banner Panorâmico</span>
-                <p class="text-xs font-medium text-white truncate">Gaab Lopes — Arte de Cabeçalho do YouTube</p>
-              </div>
-            </button>
+          <!-- MOCKUP VISUAL DE CANAL DO YOUTUBE -->
+          <div class="rounded-xl overflow-hidden border border-white/10 bg-slate-950 shadow-xl">
+            <!-- Banner Panorâmico -->
+            <div class="relative h-44 sm:h-56 overflow-hidden cursor-pointer group" onclick="openLb('./assets/images/gaab-lopes-banner.webp', 'Gaab Lopes — Banner Oficial para YouTube', 'Arte panorâmica diagramada para o canal de YouTube do artista.')">
+              <img src="./assets/images/gaab-lopes-banner.webp" alt="Banner Gaab Lopes YouTube" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300" loading="lazy">
+              <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+              <span class="absolute bottom-2 right-2 px-2.5 py-1 rounded bg-black/70 backdrop-blur-md text-[10px] font-mono text-white">Clique para ampliar banner</span>
+            </div>
 
-            <!-- Foto de Perfil & Fotos do Artista (4 colunas) -->
-            <div class="sm:col-span-4 grid grid-cols-2 sm:grid-cols-1 gap-3">
-              <button type="button" class="gallery-item card-clean p-2 text-left group focus:outline-none" data-src="./assets/images/gaab-lopes-artista.webp" data-title="Gaab Lopes — Foto Oficial do Artista" data-desc="Tratamento e edição fotográfica para divulgação e perfil.">
-                <div class="h-24 sm:h-24 rounded-lg overflow-hidden bg-slate-950 mb-1.5">
-                  <img src="./assets/images/gaab-lopes-artista.webp" alt="Foto Gaab Lopes" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-200" loading="lazy">
+            <!-- Barra de Identidade do Artista (Avatar e Ensaio) -->
+            <div class="p-4 bg-slate-900/90 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div class="flex items-center gap-3">
+                <div class="w-14 h-14 rounded-full overflow-hidden border-2 border-brand-accent shrink-0 shadow-md">
+                  <img src="./assets/images/gaab-lopes-artista.webp" alt="Gaab Lopes" class="w-full h-full object-cover object-top">
                 </div>
-                <p class="text-[11px] font-medium text-white truncate">Foto de Perfil do Artista</p>
-              </button>
-
-              <button type="button" class="gallery-item card-clean p-2 text-left group focus:outline-none" data-src="./assets/images/gaab-lopes-take1.webp" data-title="Gaab Lopes — Ensaio Fotográfico" data-desc="Foto de ensaio de estúdio tratada para peças de divulgação musical.">
-                <div class="h-24 sm:h-24 rounded-lg overflow-hidden bg-slate-950 mb-1.5">
-                  <img src="./assets/images/gaab-lopes-take1.webp" alt="Ensaio Gaab Lopes" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-200" loading="lazy">
+                <div>
+                  <h4 class="text-sm font-semibold text-white">Gaab Lopes</h4>
+                  <p class="text-xs text-slate-400">Canal Oficial de Música · Direção Visual</p>
                 </div>
-                <p class="text-[11px] font-medium text-white truncate">Foto de Ensaio Musical</p>
-              </button>
+              </div>
+
+              <!-- Fotos de Ensaio -->
+              <div class="flex items-center gap-2">
+                <button type="button" class="gallery-item px-3 py-1.5 rounded-lg bg-white/[0.05] hover:bg-white/10 border border-white/10 text-xs font-mono text-slate-300 flex items-center gap-1.5 transition-colors" data-src="./assets/images/gaab-lopes-artista.webp" data-title="Gaab Lopes — Foto Oficial" data-desc="Tratamento e edição fotográfica para perfil e streaming.">
+                  <i data-lucide="image" class="w-3.5 h-3.5 text-pink-400"></i>
+                  <span>Foto de Perfil</span>
+                </button>
+                <button type="button" class="gallery-item px-3 py-1.5 rounded-lg bg-white/[0.05] hover:bg-white/10 border border-white/10 text-xs font-mono text-slate-300 flex items-center gap-1.5 transition-colors" data-src="./assets/images/gaab-lopes-take1.webp" data-title="Gaab Lopes — Ensaio Fotográfico" data-desc="Foto de ensaio de estúdio tratada para divulgação.">
+                  <i data-lucide="camera" class="w-3.5 h-3.5 text-brand-accent"></i>
+                  <span>Ensaio Musical</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- BLOCO 3: AGA SOLDAS (CATÁLOGO INDUSTRIAL MULTI-PÁGINAS) -->
-        <div class="card-clean p-6 sm:p-7 space-y-4">
+        <!-- PROJETO 3: AGA SOLDAS (CATÁLOGO INDUSTRIAL MULTI-PÁGINAS) -->
+        <div class="glass-card p-6 sm:p-7 space-y-4">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/[0.06] pb-4">
             <div>
-              <span class="text-xs font-mono text-blue-400 uppercase tracking-wider block">Projeto 3 · Indústria &amp; Serviços Técnicos</span>
-              <h3 class="text-lg font-semibold text-white">AGA Soldas — Apresentação Comercial e Catálogo Industrial</h3>
+              <span class="text-xs font-mono text-blue-400 uppercase tracking-wider block">Projeto 3 · Indústria &amp; Caldeiraria</span>
+              <h3 class="text-lg font-semibold text-white">AGA Soldas — Catálogo Técnico &amp; Apresentação Comercial</h3>
             </div>
-            <span class="text-xs font-mono text-slate-400">PDF com várias páginas técnicas</span>
+            <span class="text-xs font-mono text-slate-400">5 Lâminas diagramadas</span>
           </div>
+
           <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            Catálogo comercial e técnico desenvolvido para apresentação de serviços de caldeiraria, fabricação de tanques e soldagem industrial pesada. Lâminas do projeto:
+            Catálogo comercial e técnico de serviços pesados para caldeiraria, tanques e tubulações industriais:
           </p>
 
           <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
-            <button type="button" class="gallery-item card-clean p-1.5 text-left group focus:outline-none" data-src="./assets/images/aga-soldas-pag01.webp" data-title="AGA Soldas — Página 01 (Capa Comercial)" data-desc="Capa institucional da apresentação comercial de solda e serviços técnicos.">
+            <button type="button" class="gallery-item glass-card p-1.5 text-left group focus:outline-none" data-src="./assets/images/aga-soldas-pag01.webp" data-title="AGA Soldas — Página 01 (Capa Comercial)" data-desc="Capa da apresentação institucional da AGA Soldas.">
               <div class="h-28 rounded overflow-hidden bg-slate-950 mb-1.5">
                 <img src="./assets/images/aga-soldas-pag01.webp" alt="Página 01" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200" loading="lazy">
               </div>
-              <span class="text-[10px] font-mono text-slate-400 block truncate">Pág. 01 — Capa Comercial</span>
+              <span class="text-[10px] font-mono text-slate-400 block truncate">Lâmina 01 — Capa</span>
             </button>
 
-            <button type="button" class="gallery-item card-clean p-1.5 text-left group focus:outline-none" data-src="./assets/images/aga-soldas-pag02.webp" data-title="AGA Soldas — Página 02 (Serviços Especializados)" data-desc="Apresentação de equipe técnica e serviços de solda.">
+            <button type="button" class="gallery-item glass-card p-1.5 text-left group focus:outline-none" data-src="./assets/images/aga-soldas-pag02.webp" data-title="AGA Soldas — Página 02 (Serviços Técnicos)" data-desc="Apresentação de serviços de solda e fabricação.">
               <div class="h-28 rounded overflow-hidden bg-slate-950 mb-1.5">
                 <img src="./assets/images/aga-soldas-pag02.webp" alt="Página 02" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200" loading="lazy">
               </div>
-              <span class="text-[10px] font-mono text-slate-400 block truncate">Pág. 02 — Serviços</span>
+              <span class="text-[10px] font-mono text-slate-400 block truncate">Lâmina 02 — Serviços</span>
             </button>
 
-            <button type="button" class="gallery-item card-clean p-1.5 text-left group focus:outline-none" data-src="./assets/images/aga-soldas-pag03.webp" data-title="AGA Soldas — Página 03 (Equipamentos)" data-desc="Processos industriais e maquinários operados.">
+            <button type="button" class="gallery-item glass-card p-1.5 text-left group focus:outline-none" data-src="./assets/images/aga-soldas-pag03.webp" data-title="AGA Soldas — Página 03 (Equipamentos)" data-desc="Maquinários e processos técnicos utilizados.">
               <div class="h-28 rounded overflow-hidden bg-slate-950 mb-1.5">
                 <img src="./assets/images/aga-soldas-pag03.webp" alt="Página 03" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200" loading="lazy">
               </div>
-              <span class="text-[10px] font-mono text-slate-400 block truncate">Pág. 03 — Processos</span>
+              <span class="text-[10px] font-mono text-slate-400 block truncate">Lâmina 03 — Processos</span>
             </button>
 
-            <button type="button" class="gallery-item card-clean p-1.5 text-left group focus:outline-none" data-src="./assets/images/aga-soldas-pag04.webp" data-title="AGA Soldas — Página 04 (Tanques e Tubulações)" data-desc="Casos de fabricação de tanques e tubulações industriais.">
+            <button type="button" class="gallery-item glass-card p-1.5 text-left group focus:outline-none" data-src="./assets/images/aga-soldas-pag04.webp" data-title="AGA Soldas — Página 04 (Tanques e Tubulações)" data-desc="Casos de caldeiraria pesada e fabricação de tanques.">
               <div class="h-28 rounded overflow-hidden bg-slate-950 mb-1.5">
                 <img src="./assets/images/aga-soldas-pag04.webp" alt="Página 04" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200" loading="lazy">
               </div>
-              <span class="text-[10px] font-mono text-slate-400 block truncate">Pág. 04 — Tanques</span>
+              <span class="text-[10px] font-mono text-slate-400 block truncate">Lâmina 04 — Tanques</span>
             </button>
 
-            <button type="button" class="gallery-item card-clean p-1.5 text-left group focus:outline-none" data-src="./assets/images/aga-soldas-pag05.webp" data-title="AGA Soldas — Página 05 (Obras e Montagem)" data-desc="Histórico de projetos industriais e clientes atendidos.">
+            <button type="button" class="gallery-item glass-card p-1.5 text-left group focus:outline-none" data-src="./assets/images/aga-soldas-pag05.webp" data-title="AGA Soldas — Página 05 (Obras e Montagem)" data-desc="Histórico de projetos industriais executados.">
               <div class="h-28 rounded overflow-hidden bg-slate-950 mb-1.5">
                 <img src="./assets/images/aga-soldas-pag05.webp" alt="Página 05" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200" loading="lazy">
               </div>
-              <span class="text-[10px] font-mono text-slate-400 block truncate">Pág. 05 — Obras</span>
+              <span class="text-[10px] font-mono text-slate-400 block truncate">Lâmina 05 — Obras</span>
             </button>
           </div>
         </div>
 
-        <!-- BLOCO 4: UM TOQUE DE AMOR & TOPLANCHE GASTRONOMIA -->
+        <!-- PROJETO 4: UM TOQUE DE AMOR & TOPLANCHE -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <!-- Um Toque de Amor -->
-          <div class="card-clean p-6 flex flex-col justify-between">
+          <div class="glass-card p-6 flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-2">
                 <span class="text-rose-400">Identidade Visual</span>
@@ -574,19 +642,19 @@
               </div>
               <h3 class="text-base font-semibold text-white">Um Toque de Amor</h3>
               <p class="text-xs text-slate-400 leading-relaxed mt-1 mb-4">
-                Composição visual e peça de comunicação desenvolvida para o projeto Um Toque de Amor com foco em sensibilidade e estética acolhedora.
+                Composição visual desenvolvida para comunicação de marca com estética suave e afetiva.
               </p>
-              <button type="button" class="gallery-item w-full card-clean p-2 text-left group focus:outline-none" data-src="./assets/images/um-toque-de-amor.webp" data-title="Um Toque de Amor — Peça Visual" data-desc="Arte diagramada para redes sociais e comunicação institucional de Um Toque de Amor.">
+              <button type="button" class="gallery-item w-full glass-card p-2 text-left group focus:outline-none" data-src="./assets/images/um-toque-de-amor.webp" data-title="Um Toque de Amor — Peça Visual" data-desc="Arte diagramada para redes sociais de Um Toque de Amor.">
                 <div class="h-44 rounded-lg overflow-hidden bg-slate-950 mb-1.5">
                   <img src="./assets/images/um-toque-de-amor.webp" alt="Um Toque de Amor" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200" loading="lazy">
                 </div>
-                <span class="text-xs font-medium text-white">Clique para ver em tamanho real</span>
+                <span class="text-xs font-medium text-white">Clique para ver em tamanho real ↗</span>
               </button>
             </div>
           </div>
 
           <!-- Toplanche Gastronomia -->
-          <div class="card-clean p-6 flex flex-col justify-between">
+          <div class="glass-card p-6 flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-2">
                 <span class="text-emerald-400">Gastronomia</span>
@@ -594,13 +662,13 @@
               </div>
               <h3 class="text-base font-semibold text-white">Toplanche — Engenharia de Cardápio</h3>
               <p class="text-xs text-slate-400 leading-relaxed mt-1 mb-4">
-                Cardápio visual de alta legibilidade desenvolvido para hamburgueria e delivery, com diagramação clara de preços, combos e itens.
+                Cardápio visual diagramado para hamburgueria e delivery, com clareza de preços, combos e opções.
               </p>
-              <button type="button" class="gallery-item w-full card-clean p-2 text-left group focus:outline-none" data-src="./assets/images/toplanche-menu.webp" data-title="Toplanche — Cardápio Completo" data-desc="Cardápio estruturado para impressão e envio digital no WhatsApp de clientes.">
+              <button type="button" class="gallery-item w-full glass-card p-2 text-left group focus:outline-none" data-src="./assets/images/toplanche-menu.webp" data-title="Toplanche — Cardápio Completo" data-desc="Cardápio estruturado para impressão e envio digital.">
                 <div class="h-44 rounded-lg overflow-hidden bg-slate-950 mb-1.5">
                   <img src="./assets/images/toplanche-menu.webp" alt="Toplanche Menu" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200" loading="lazy">
                 </div>
-                <span class="text-xs font-medium text-white">Clique para ver o cardápio completo</span>
+                <span class="text-xs font-medium text-white">Clique para ver o cardápio completo ↗</span>
               </button>
             </div>
           </div>
@@ -609,34 +677,72 @@
       </div>
     </section>
 
-    <!-- CONTATO & REDES (SIMPLES, DIRETO, SEM VENDAS) -->
-    <section id="contato" class="pt-6 border-t border-white/[0.06]">
-      <div class="card-clean p-6 sm:p-8 text-center max-w-xl mx-auto">
-        <h2 class="text-lg sm:text-xl font-semibold text-white">Vamos conversar?</h2>
-        <p class="text-xs sm:text-sm text-slate-300 mt-2 leading-relaxed">
-          Seja para trocar ideias sobre desenvolvimento e design, projetos acadêmicos ou simplesmente bater um papo, meus canais estão abertos.
-        </p>
+    <!-- ENGENHARIA DE DESIGN, APIS & MCPS (GRÁFICO INTERATIVO) -->
+    <section id="arquitetura-ia" class="pt-6 border-t border-white/[0.06]">
+      <div class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-white tracking-tight">Arquitetura de Engenharia Agêntica &amp; MCPs</h2>
+        <p class="text-xs sm:text-sm text-slate-400 mt-1">Como estruturo meus ambientes de desenvolvimento no Cursor e Claude Code conectando RAG e automações.</p>
+      </div>
 
-        <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
-          <a href="https://wa.me/5573981037776?text=Oi%20Victor,%20vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar." target="_blank" rel="noopener" class="px-4 py-2.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-medium text-xs inline-flex items-center gap-2 transition-colors">
-            <i data-lucide="message-circle" class="w-4 h-4 fill-current"></i>
-            <span>WhatsApp (+55 73 98103-7776)</span>
-          </a>
+      <!-- DIAGRAMA VISUAL INTERATIVO DAS 4 CAMADAS -->
+      <div class="glass-card p-6 sm:p-8 space-y-6">
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 relative">
+          <!-- Camada 1: Memória -->
+          <div class="p-4 rounded-xl bg-slate-900 border border-white/10 relative overflow-hidden group hover:border-brand-accent transition-colors">
+            <div class="w-8 h-8 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-sm font-mono font-bold mb-3">01</div>
+            <h4 class="text-xs font-semibold text-white mb-1">Memória &amp; RAG</h4>
+            <p class="text-[11px] text-slate-400 leading-relaxed">Segundo cérebro no Obsidian conectando regras de branding, diretrizes e notas locais.</p>
+          </div>
 
-          <a href="mailto:zeniniti@gmail.com" class="px-4 py-2.5 rounded-lg bg-white/[0.05] hover:bg-white/10 border border-white/10 text-white text-xs inline-flex items-center gap-2 transition-colors">
-            <i data-lucide="mail" class="w-4 h-4 text-brand-accent"></i>
-            <span>zeniniti@gmail.com</span>
-          </a>
+          <!-- Camada 2: Skills -->
+          <div class="p-4 rounded-xl bg-slate-900 border border-white/10 relative overflow-hidden group hover:border-brand-indigo transition-colors">
+            <div class="w-8 h-8 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-sm font-mono font-bold mb-3">02</div>
+            <h4 class="text-xs font-semibold text-white mb-1">Agent Skills</h4>
+            <p class="text-[11px] text-slate-400 leading-relaxed">Instruções de animação (Framer Motion, Remotion para vídeo e 21st.dev) padronizadas.</p>
+          </div>
+
+          <!-- Camada 3: Multi-Agentes -->
+          <div class="p-4 rounded-xl bg-slate-900 border border-white/10 relative overflow-hidden group hover:border-brand-violet transition-colors">
+            <div class="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center text-sm font-mono font-bold mb-3">03</div>
+            <h4 class="text-xs font-semibold text-white mb-1">Orquestração</h4>
+            <p class="text-[11px] text-slate-400 leading-relaxed">Divisão de tarefas de código: arquitetura, front-end, rotas Laravel e avaliação de qualidade.</p>
+          </div>
+
+          <!-- Camada 4: MCPs -->
+          <div class="p-4 rounded-xl bg-slate-900 border border-white/10 relative overflow-hidden group hover:border-brand-pink transition-colors">
+            <div class="w-8 h-8 rounded-lg bg-pink-500/20 text-pink-400 flex items-center justify-center text-sm font-mono font-bold mb-3">04</div>
+            <h4 class="text-xs font-semibold text-white mb-1">Braços MCP</h4>
+            <p class="text-[11px] text-slate-400 leading-relaxed">Conexão via Model Context Protocol: GitHub MCP, Puppeteer para QA visual e APIs de sistema.</p>
+          </div>
         </div>
 
-        <div class="mt-6 pt-4 border-t border-white/[0.06] flex items-center justify-center gap-6 text-xs text-slate-400">
-          <a href="https://github.com/Victorapenas" target="_blank" rel="noopener" class="hover:text-white flex items-center gap-1.5 transition-colors">
-            <i data-lucide="github" class="w-3.5 h-3.5"></i>
-            <span>github.com/Victorapenas</span>
+        <div class="p-4 rounded-xl bg-slate-950 border border-white/[0.06] flex items-center justify-between text-xs font-mono text-slate-400">
+          <span class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+            <span>Ambiente configurado com .cursor/rules &amp; Claude Code</span>
+          </span>
+          <span class="text-slate-500">2026 Engine</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONEXÃO & CONTATO (APENAS GITHUB & LINKEDIN) -->
+    <section id="contatos" class="pt-6 border-t border-white/[0.06]">
+      <div class="glass-card p-6 sm:p-8 text-center max-w-lg mx-auto space-y-4">
+        <h2 class="text-lg sm:text-xl font-semibold text-white">Conexão &amp; Redes Oficiais</h2>
+        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+          Para acompanhar meus repositórios, conferir commits ou se conectar profissionalmente, utilize meus canais oficiais:
+        </p>
+
+        <div class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+          <a href="https://github.com/Victorapenas" target="_blank" rel="noopener" class="w-full sm:w-auto px-5 py-2.5 rounded-lg bg-white text-slate-950 font-medium text-xs inline-flex items-center justify-center gap-2 hover:bg-slate-200 transition-colors">
+            <i data-lucide="github" class="w-4 h-4"></i>
+            <span>GitHub (@Victorapenas)</span>
           </a>
-          <a href="https://www.linkedin.com/in/victor-hugo-santana-sousa-947b97364" target="_blank" rel="noopener" class="hover:text-sky-400 flex items-center gap-1.5 transition-colors">
-            <i data-lucide="linkedin" class="w-3.5 h-3.5"></i>
-            <span>LinkedIn</span>
+
+          <a href="https://www.linkedin.com/in/victor-hugo-santana-sousa-947b97364" target="_blank" rel="noopener" class="w-full sm:w-auto px-5 py-2.5 rounded-lg bg-sky-500/10 hover:bg-sky-500/20 border border-sky-400/30 text-sky-300 font-medium text-xs inline-flex items-center justify-center gap-2 transition-colors">
+            <i data-lucide="linkedin" class="w-4 h-4 text-sky-400"></i>
+            <span>LinkedIn Oficial</span>
           </a>
         </div>
       </div>
@@ -644,16 +750,20 @@
 
   </main>
 
-  <!-- Rodapé -->
-  <footer class="mt-20 py-8 border-t border-white/[0.06] text-center text-xs font-mono text-slate-500">
+  <!-- Rodapé Simples -->
+  <footer class="mt-20 py-8 border-t border-white/[0.06] text-center text-xs font-mono text-slate-500 relative z-10">
     <div class="max-w-5xl mx-auto px-5 flex flex-col sm:flex-row items-center justify-between gap-2">
       <p>Victor Hugo Santana Sousa · Eunápolis, Bahia</p>
-      <p class="text-slate-400">JUST ME 🌙</p>
+      <div class="flex items-center gap-4 text-slate-400">
+        <a href="https://github.com/Victorapenas" target="_blank" rel="noopener" class="hover:text-white">GitHub</a>
+        <a href="https://www.linkedin.com/in/victor-hugo-santana-sousa-947b97364" target="_blank" rel="noopener" class="hover:text-sky-400">LinkedIn</a>
+        <span>JUST ME 🌙</span>
+      </div>
     </div>
   </footer>
 
-  <!-- Lightbox Modal com Navegação entre Imagens -->
-  <div id="lightbox" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Visualização da imagem">
+  <!-- Lightbox Modal -->
+  <div id="lightbox" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Visualização em Alta Resolução">
     <button type="button" id="closeLightbox" class="absolute top-4 right-4 w-10 h-10 rounded-lg bg-white/10 text-white inline-flex items-center justify-center hover:bg-white/20 transition-colors z-10" aria-label="Fechar">
       <i data-lucide="x" class="w-5 h-5"></i>
     </button>
@@ -665,22 +775,181 @@
     </div>
   </div>
 
+  <!-- JAVASCRIPT: Interactivity, Slider, Canvas & Tabs -->
   <script>
     lucide.createIcons();
 
+    // 1. Ambient Background Particles Canvas (60fps Leve e Suave)
+    const canvas = document.getElementById('ambientCanvas');
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      let w = canvas.width = window.innerWidth;
+      let h = canvas.height = window.innerHeight;
+
+      window.addEventListener('resize', () => {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+      });
+
+      const particles = [];
+      const numParticles = Math.min(35, Math.floor(w / 40));
+      for (let i = 0; i < numParticles; i++) {
+        particles.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          vx: (Math.random() - 0.5) * 0.4,
+          vy: (Math.random() - 0.5) * 0.4,
+          r: Math.random() * 1.5 + 0.8
+        });
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, w, h);
+        ctx.fillStyle = 'rgba(56, 189, 248, 0.4)';
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < 0) p.x = w;
+          if (p.x > w) p.x = 0;
+          if (p.y < 0) p.y = h;
+          if (p.y > h) p.y = 0;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        requestAnimationFrame(draw);
+      }
+      draw();
+    }
+
+    // 2. Abas Interativas do CháVIP (SaaS)
+    const chaTabs = document.querySelectorAll('.cha-tab');
+    const chaContent = document.getElementById('chaTabContent');
+    const chaData = {
+      scraping: `
+        <div class="w-full max-w-xl space-y-3">
+          <div class="flex items-center gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/10">
+            <i data-lucide="link" class="w-5 h-5 text-amber-400 shrink-0"></i>
+            <div class="text-xs truncate font-mono text-slate-300">https://amazon.com.br/dp/B08N5WRWNW (Link colado pelo anfitrião)</div>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 ml-auto shrink-0">Scraped 0.3s</span>
+          </div>
+          <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-900 border border-white/10">
+            <div class="w-14 h-14 rounded-lg bg-amber-500/20 flex items-center justify-center text-2xl shrink-0">☕</div>
+            <div>
+              <h4 class="text-xs font-semibold text-white">Cafeteira Espresso Automática</h4>
+              <p class="text-[11px] text-slate-400">Foto, título e preço (R$ 389,00) extraídos automaticamente sem cadastro manual.</p>
+            </div>
+          </div>
+        </div>`,
+      pix: `
+        <div class="w-full max-w-xl space-y-3 text-center sm:text-left flex flex-col sm:flex-row items-center gap-5 p-4 rounded-xl bg-slate-900 border border-white/10">
+          <div class="w-24 h-24 bg-white rounded-lg p-2 flex items-center justify-center shrink-0 shadow-lg">
+            <div class="w-full h-full bg-slate-900 rounded flex flex-col items-center justify-center text-cyan-400 text-[10px] font-mono font-bold">
+              QR CODE
+              <span class="text-[8px] text-slate-400">PIX DIRETO</span>
+            </div>
+          </div>
+          <div>
+            <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-mono text-[10px] mb-1">
+              ✓ 0% Taxa de Intermediação
+            </div>
+            <h4 class="text-xs font-semibold text-white">Transferência Direta para o Anfitrião</h4>
+            <p class="text-[11px] text-slate-400 leading-relaxed mt-1">O convidado escolhe o presente e paga por PIX. O dinheiro cai instantaneamente na conta bancária do organizador sem retenção.</p>
+          </div>
+        </div>`,
+      rsvp: `
+        <div class="w-full max-w-xl grid grid-cols-3 gap-3 text-center">
+          <div class="p-4 rounded-xl bg-slate-900 border border-white/10">
+            <span class="block text-xl font-mono font-bold text-emerald-400">84</span>
+            <span class="block text-[10px] font-mono text-slate-400 uppercase mt-1">Presenças Confirmadas</span>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-900 border border-white/10">
+            <span class="block text-xl font-mono font-bold text-amber-400">12</span>
+            <span class="block text-[10px] font-mono text-slate-400 uppercase mt-1">Pendentes</span>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-900 border border-white/10">
+            <span class="block text-xl font-mono font-bold text-cyan-400">100%</span>
+            <span class="block text-[10px] font-mono text-slate-400 uppercase mt-1">Sincronizado</span>
+          </div>
+        </div>`
+    };
+
+    chaTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        chaTabs.forEach(t => {
+          t.classList.remove('bg-white/10', 'text-white', 'border', 'border-white/15');
+          t.classList.add('text-slate-400');
+        });
+        tab.classList.add('bg-white/10', 'text-white', 'border', 'border-white/15');
+        tab.classList.remove('text-slate-400');
+        chaContent.innerHTML = chaData[tab.dataset.tab];
+        lucide.createIcons();
+      });
+    });
+
+    // 3. Slider Interativo de Lâminas dos Trailers (Garagem)
+    const garagemSlides = [
+      { src: './assets/images/garagem-slide-01.webp', title: 'Pág. 01 — Capa Modelo Classic' },
+      { src: './assets/images/garagem-slide-02.webp', title: 'Pág. 02 — Apresentação & Conceito' },
+      { src: './assets/images/garagem-slide-03.webp', title: 'Pág. 03 — Estrutura e Dimensões' },
+      { src: './assets/images/garagem-slide-04.webp', title: 'Pág. 04 — Acabamento Modelo Premium' },
+      { src: './assets/images/garagem-slide-05.webp', title: 'Pág. 05 — Ficha Técnica Completa' },
+      { src: './assets/images/garagem-slide-06.webp', title: 'Pág. 06 — Galeria de Montagem Real' }
+    ];
+
+    let currentGaragemIdx = 0;
+    const heroImg = document.getElementById('garagemHeroImg');
+    const heroTitle = document.getElementById('garagemSlideTitle');
+    const heroCounter = document.getElementById('garagemSlideCounter');
+    const thumbs = document.querySelectorAll('.garagem-thumb');
+
+    function updateGaragemSlide(idx) {
+      if (idx < 0) idx = garagemSlides.length - 1;
+      if (idx >= garagemSlides.length) idx = 0;
+      currentGaragemIdx = idx;
+
+      heroImg.src = garagemSlides[idx].src;
+      heroTitle.textContent = garagemSlides[idx].title;
+      heroCounter.textContent = `${idx + 1} / ${garagemSlides.length}`;
+
+      thumbs.forEach((t, i) => {
+        if (i === idx) {
+          t.classList.add('border-brand-accent', 'opacity-100');
+          t.classList.remove('border-white/10', 'opacity-60');
+        } else {
+          t.classList.remove('border-brand-accent', 'opacity-100');
+          t.classList.add('border-white/10', 'opacity-60');
+        }
+      });
+    }
+
+    const prevBtn = document.getElementById('prevGaragemBtn');
+    const nextBtn = document.getElementById('nextGaragemBtn');
+    if (prevBtn) prevBtn.addEventListener('click', () => updateGaragemSlide(currentGaragemIdx - 1));
+    if (nextBtn) nextBtn.addEventListener('click', () => updateGaragemSlide(currentGaragemIdx + 1));
+
+    thumbs.forEach(t => {
+      t.addEventListener('click', () => {
+        updateGaragemSlide(parseInt(t.dataset.idx, 10));
+      });
+    });
+
+    // 4. Lightbox Modal
     const lb = document.getElementById('lightbox');
     const lbImg = document.getElementById('lightboxImg');
     const lbTitle = document.getElementById('lightboxTitle');
     const lbDesc = document.getElementById('lightboxDesc');
     const closeBtn = document.getElementById('closeLightbox');
 
-    function openLb(src, title, desc) {
+    window.openLb = function(src, title, desc) {
       lbImg.src = src;
       lbTitle.textContent = title;
       lbDesc.textContent = desc || '';
       lb.classList.add('open');
       document.body.style.overflow = 'hidden';
-    }
+    };
 
     function closeLbModal() {
       lb.classList.remove('open');
