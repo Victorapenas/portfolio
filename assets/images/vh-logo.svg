@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" fill="none">
+  <defs>
+    <linearGradient id="vhGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="50%" stop-color="#818CF8"/>
+      <stop offset="100%" stop-color="#C084FC"/>
+    </linearGradient>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#070A12"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Outer subtle border & dark background -->
+  <rect x="2" y="2" width="116" height="116" rx="28" fill="url(#bgGrad)" stroke="rgba(255,255,255,0.12)" stroke-width="2"/>
+  
+  <!-- Elegant crescent moon arc (JUST ME 🌙) -->
+  <path d="M78 30 C 62 34 50 48 50 66 C 50 84 64 98 82 98 C 66 102 42 92 36 72 C 30 52 42 32 68 24 C 71.5 22.8 75 23 78 30 Z" fill="url(#vhGrad)" opacity="0.35"/>
+  
+  <!-- Modern Geometric Monogram "V H" -->
+  <!-- V -->
+  <path d="M42 45 L54 75 L66 45" stroke="url(#vhGrad)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- H -->
+  <path d="M68 45 L68 75" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round"/>
+  <path d="M68 60 L86 60" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round"/>
+  <path d="M86 45 L86 75" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round"/>
+  
+  <!-- Small glowing moon star -->
+  <circle cx="88" cy="34" r="3" fill="#38BDF8"/>
+</svg>
