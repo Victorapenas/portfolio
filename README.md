@@ -1,4 +1,4 @@
-# 🌙 Victor Hugo — Portfólio & Currículo Visual Oficial (`JUST ME`)
+﻿# 🌙 Victor Hugo — Portfólio & Currículo Visual Oficial (`JUST ME`)
 
 <div align="center">
   <img src="./assets/images/vh-logo.svg" width="90" alt="Victor Hugo Logo" />
@@ -8,7 +8,7 @@
 
   <p>
     <a href="https://github.com/Victorapenas"><img src="https://img.shields.io/badge/GitHub-Victorapenas-181717?style=for-the-badge&logo=github" alt="GitHub" /></a>
-    <a href="https://www.linkedin.com/in/victor-hugo-santana-sousa-947b97364"><img src="https://img.shields.io/badge/LinkedIn-Victor_Hugo-0A66C2?style=for-the-badge&logo=linkedin" alt="LinkedIn" /></a>
+    <a href="https://www.linkedin.com/in/victorhugosantanasousa/"><img src="https://img.shields.io/badge/LinkedIn-Victor_Hugo-0A66C2?style=for-the-badge&logo=linkedin" alt="LinkedIn" /></a>
   </p>
 </div>
 
@@ -69,7 +69,7 @@ Além de código, este portfólio documenta materiais gráficos reais:
 ## 📬 Conexões Oficiais
 
 * 💻 **GitHub:** [github.com/Victorapenas](https://github.com/Victorapenas)
-* 💼 **LinkedIn:** [linkedin.com/in/victor-hugo-santana-sousa-947b97364](https://www.linkedin.com/in/victor-hugo-santana-sousa-947b97364)
+* 💼 **LinkedIn:** [linkedin.com/in/victorhugosantanasousa](https://www.linkedin.com/in/victorhugosantanasousa/)
 * 📍 **Localização:** Eunápolis, Bahia — Brasil
 
 ---
@@ -77,3 +77,5 @@ Além de código, este portfólio documenta materiais gráficos reais:
 <p align="center">
   <b>JUST ME 🌙</b> · Victor Hugo Santana Sousa © 2026
 </p>
+
+

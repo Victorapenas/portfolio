@@ -1,4 +1,4 @@
-# 🧠 Contexto Mestre — Portfólio Victor Hugo (cloud.md)
+﻿# 🧠 Contexto Mestre — Portfólio Victor Hugo (cloud.md)
 
 Este projeto é o **Portfólio Oficial & Acervo Visual de Victor Hugo Santana (@Victorapenas)**.
 Toda IA que operar neste repositório (Cursor, Claude Code, Antigravity) DEVE consultar e seguir o **Segundo Cérebro (Obsidian)** em:
@@ -19,10 +19,11 @@ Toda IA que operar neste repositório (Cursor, Claude Code, Antigravity) DEVE co
 * **Motto Obrigatório:** *"JUST ME 🌙"* em destaque.
 * **Perfil do Victor:** Desenvolvedor Fullstack & Design Engineer. IFBA (Técnico em Informática Integrado, Graduação em ADS, Monitor Oficial de Programação Web e PHP).
 * **Posicionamento:** Não é página de venda. É um acervo visual e relato de trajetória pessoal, priorizando elementos gráficos e imersão visual com textos como complemento.
-* **Contatos Oficiais:** Apenas **GitHub** (`https://github.com/Victorapenas`) e **LinkedIn** (`https://www.linkedin.com/in/victor-hugo-santana-sousa-947b97364`). Sem e-mail e sem telefone.
+* **Contatos Oficiais:** Apenas **GitHub** (`https://github.com/Victorapenas`) e **LinkedIn** (`https://www.linkedin.com/in/victorhugosantanasousa/`). Sem e-mail e sem telefone.
 * **Flagship SaaS:** **CháVIP** (`https://chadecasa.mbvcompany.com/`) hospedado em produção na Hostinger.
 * **Acervo Gráfico Multi-Páginas:**
   - Garagem Retro Smart (Apresentação de trailers em slides / PDF)
   - Gaab Lopes (Banner de YouTube e fotos)
   - AGA Soldas (Catálogo industrial em lâminas técnicas)
   - Um Toque de Amor & Toplanche
+
